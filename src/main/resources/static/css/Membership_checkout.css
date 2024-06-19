@@ -1,0 +1,160 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬을 위한 스타일 추가 */
+  background-color: #3bccf8;
+  padding: 60px;
+}
+
+.hero img {
+  max-width: 50%;
+  height: auto;
+  margin-right: 40px;
+  margin-left: 70px;
+}
+
+.membership-details h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.membership-details p {
+  font-size: 18px;
+}
+
+/* Payment Options */
+.payment-options {
+  background-color: #f5f5f5;
+  padding: 60px;
+  text-align: center;
+}
+
+.payment-options h2 {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.payment-btn {
+  background-color: #3bccf8;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Payment Summary */
+.payment-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px;
+}
+
+.payment-options {
+  flex: 1;
+  margin-right: 40px;
+}
+
+.payment-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment-btn {
+  background-color: #3bccf8;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.payment-summary {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.payment-summary h2 {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.payment-details {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.payment-details span {
+  font-weight: bold;
+}
+
+.payment-container {
+  display: flex;
+  justify-content: space-between; /* 요소들을 좌우로 간격을 주어 배치 */
+  align-items: center; /* 요소들을 수직으로 가운데 정렬 */
+}
+
+.payment-summary {
+  flex: 1; /* 남은 공간을 채우기 위해 확장 */
+}
+
+.payment-image {
+  flex: 0 0 20%; /* 고정 너비를 주어 이미지가 너무 크게 늘어나지 않도록 함 */
+  margin-left: 30px; /* 이미지와 요소 사이에 간격을 줌 */
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 80px;
+}
+
+.footer-content {
+  /* Footer content styles */
+}

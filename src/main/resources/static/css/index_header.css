@@ -1,0 +1,251 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  font-size: 16px; /* 기본 글꼴 크기 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif; /* 제목 글꼴 변경 */
+  font-weight: bold; /* 제목 글꼴 굵게 설정 */
+}
+
+p {
+  font-size: 18px; /* 본문 글꼴 크기 */
+  line-height: 1.6; /* 줄 간격 조정 */
+}
+
+strong {
+  color: #000000; /* 강조된 텍스트 색상 변경 */
+  text-decoration: underline; /* 강조된 텍스트에 밑줄 추가 */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* Header */
+header {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  font-weight: bold;
+}
+
+.logo img {
+  max-width: 200px;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  gap: 70px;
+}
+
+nav ul a:hover{
+  font-weight: bolder;
+  font-size: x-large;
+  z-index: -1; /* 다른 요소 위에 표시되도록 순서를 조정합니다. */
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-actions .btn {
+  background-color: #414141;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+}
+
+.user-actions .btn:hover {
+	color: black;
+  background-color: rgb(85, 255, 198);
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff6347;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 500;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e65c4f;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 120px 80px;
+  }
+
+  .logo img {
+    width: 130px;
+    height: auto;
+  }
+  .search-box {
+    position: absolute;
+    top: 75%;
+    left: 80px;
+    transform: translateY(-50%);
+    width: 600px;
+  }
+
+  .quick-links {
+    flex-wrap: wrap;
+    justify-content: space-around; /* 퀵 링크를 좌우로 정렬합니다. */
+    gap: 20px; /* 퀵 링크 간격을 조절합니다. */
+  }
+
+  .quick-link {
+    width: calc(50% - 10px); /* 퀵 링크가 2개씩 보이도록 너비를 조절합니다. */
+    max-width: 150px; /* 최대 너비 설정 */
+    height: 150px;
+  }
+
+  .quick-link i {
+    font-size: 2rem;
+  }
+
+  .quick-link span {
+    font-size: 16px;
+  }
+}
+
+/* About */
+.about {
+  display: flex;
+  background-color: #F5F5F5;
+  padding: 80px;
+}
+
+.about-content {
+  flex: 1;
+  padding-right: 60px;
+}
+
+.about-content h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+}
+
+.about .btn:hover {
+  font-size: larger;
+  font-weight: bolder;
+  color: rgb(137, 222, 195);
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 80px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a:hover {
+  color: rgb(85, 255, 198);
+}
+
+.social-icons a {
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.social-icons a:hover {
+  color: rgb(85, 255, 198);
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+}
+
+.btn-outline-secondary {
+	border-radius: 5px;
+	background-color: #0d6efd;
+	padding: 12px;
+}
+
+.btn-outline-secondary:hover {
+	background-color: blue;
+}
+
+.badge {
+	color: black;
+}
+
+.btn-member {
+	width: 100px;
+	height: 45px;
+  color: white;
+  background-color: #414141;
+  padding: 10px 20px;
+  margin: 0;
+  border-radius: 5px;
+  font-weight: 800;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-member:hover {
+  background-color: rgb(85, 255, 198);
+}

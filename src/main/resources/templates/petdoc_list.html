@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>펫닥 게시판</title>
+    <link rel="stylesheet" href="/css/petdoc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>펫닥 게시판</h1>
+        <button class="write-btn" onclick="showWriteModal()"><i class="fas fa-pen"></i> 글쓰기</button>
+        <div class="post-list">
+            <!-- 게시글 목록 렌더링 -->
+            <div class="post-item" th:each="post : ${posts}" th:if="${not #lists.isEmpty(posts)}">
+                <h3 th:text="${post.title}"></h3>
+                <p th:text="${post.details}"></p>
+                <div class="post-meta">
+                    <span th:text="${post.userName}"></span>
+                    <span th:text="${#dates.format(post.registerDate, 'yyyy-MM-dd')}"></span>
+                    <a href="#" th:attr="data-petdoc-id=${post.PetdocId}" class="edit-btn">수정</a>
+                    <a href="#" th:attr="data-petdoc-id=${post.PetdocId}" class="delete-btn">삭제</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 글쓰기 모달 -->
+    <div class="modal" id="writeModal">
+        <div class="modal-content">
+            <span class="close" onclick="hideWriteModal()">&times;</span>
+            <h2>글쓰기</h2>
+            <form th:action="@{/petdoc}" method="post">
+                <input type="text" name="title" th:value="${title}" placeholder="제목" required>
+                <textarea name="details" th:value="${details}" placeholder="내용" required></textarea>
+                <!-- 로그인된 사용자의 이름을 가져오는 필드 -->
+                <input type="text" name="userName" th:value="${userName}" placeholder="작성자" required>
+                <button type="submit">등록</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 수정 모달 -->
+<div class="modal" id="editModal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="hideEditModal()">&times;</span>
+        <h2>수정하기</h2>
+        <form id="editForm" method="post">
+            <input type="text" name="title" placeholder="제목" required>
+            <textarea name="details" placeholder="내용" required></textarea>
+            <input type="text" name="userName" placeholder="작성자" required>
+            <button type="submit">수정</button>
+        </form>
+    </div>
+</div>
+
+    <script src="/js/petdoc.js"></script>
+</body>
+</html>

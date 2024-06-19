@@ -1,0 +1,81 @@
+<!-- customer_center.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT_고객센터</title>
+  <link rel="stylesheet" th:href="@{/css/customer.css}">
+  <link rel="stylesheet" href="/css/customer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a th:href="@{/index}"><img src="image/펫핏.png" alt="PetDoc"></a>
+    </div>
+    <ul class="nav-links">
+      <li><a th:href="@{/index}"><i class="fas fa-home"></i> 홈</a></li>
+      <li><a th:href="@{/reservation}"><i class="fas fa-comments"></i> 고객상담</a></li>
+      <li><a th:href="@{/FAQ}"><i class="fas fa-question-circle"></i> FAQ</a></li>
+      <li><a th:href="@{/customer}"><i class="fas fa-file-alt"></i> 문의하기</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <div class="header-info">
+        <h1>고객센터</h1>
+        <div class="info-item">
+          <i class="fas fa-phone"></i>
+          <span>1234-5678</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>서울특별시 강남구 역삼동 123-45</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <span>support@petdoc.com</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-clock"></i>
+          <span>평일 09:00 - 18:00 (주말 및 공휴일 휴무)</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>공지사항</h2>
+        <p>반려동물 관련 문의사항을 상담받을 수 있습니다.</p>
+        <a th:href="@{/notice}"><button>확인하기</button></a>
+      </section>
+
+<!--       
+			<section>
+        <h2>고객상담</h2>
+        <p>반려동물 관련 문의사항을 상담받을 수 있습니다.</p>
+        <a th:href="@{/reservation}"><button>상담하기</button></a>
+      </section> 
+-->
+
+      <section>
+        <h2>자주 묻는 질문</h2>
+        <p>반려동물 관리와 관련된 FAQ를 확인할 수 있습니다.</p>
+        <a th:href="@{/FAQ}"><button>FAQ보기</button></a>
+      </section>
+
+      <section>
+        <h2>1:1 문의</h2>
+        <p>1:1 문의 양식을 통해 문의사항을 전송할 수 있습니다.</p>
+        <a th:href="@{/customer}"><button>문의하기</button></a>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script th:src="@{/js/customer.js}"></script>
+  <script src="/js/customer.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+/* 헤더 영역 */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #3bccf8;
+}
+
+nav .nav-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+nav .nav-buttons a {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+nav .nav-buttons a:hover {
+  background-color: #3bccf8;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-actions .btn {
+  background-color: #3bccf8;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.user-actions .btn:hover {
+  background-color: #2298c4;
+}
+/* 메인 영역 */
+.hospital-update-request {
+  padding: 60px 80px;
+}
+
+.hospital-list {
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-list h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.hospital-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.hospital-list ul li {
+  margin-bottom: 10px;
+}
+
+.hospital-list ul li a {
+  display: block;
+  background-color: #fff;
+  color: #333;
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.hospital-list ul li a:hover {
+  background-color: #3bccf8;
+  color: #fff;
+}
+
+/* 푸터 영역 */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 80px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #3bccf8;
+}
+
+.social-icons a {
+  font-size: 24px;
+  margin-right: 20px;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #3bccf8;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+}

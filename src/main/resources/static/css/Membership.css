@@ -1,0 +1,96 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬을 위한 스타일 추가 */
+  background-color: #3bccf8;
+  padding: 60px;
+}
+
+.hero img {
+  max-width: 50%;
+  height: auto;
+  margin-right: 40px;
+  margin-left: 70px;
+}
+
+.membership-details h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.membership-details p {
+  font-size: 18px;
+}
+
+/* Membership Details */
+.membership-details {
+  display: flex;
+  flex-direction: column; /* 세로로 요소들을 배치하기 위해 */
+  align-items: center; /* 가운데 정렬 */
+  padding: 80px;
+}
+
+.membership-info {
+  display: flex;
+  align-items: center; /* 가운데 정렬 */
+  justify-content: center; /* 가운데 정렬 */
+  gap: 20px; /* 요소들 사이의 간격 */
+}
+p {
+	padding: 10px;
+	margin-bottom: 20px;
+	font-size: 50px;
+}
+
+.info {
+  width: 600px; /* 요약 정보의 너비 조정 */
+  height: auto;
+}
+
+.membership-card {
+  flex: 1; /* 남은 공간을 차지하도록 설정 */
+}
+
+.cta-container {
+  text-align: center;
+}
+
+.btn {
+  background-color: #3bccf8;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.membership-card img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 80px;
+}

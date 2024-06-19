@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계정 찾기</title>
+  <link rel="stylesheet" href="/css/style_lr.css">
+</head>
+<body>
+  <div class="container">
+    <h1>계정 찾기</h1>
+    <div class="recovery-container">
+      <form id="recovery-form" action="/recover-account" method="post">
+        <div class="form-group">
+          <label for="email">등록된 이메일 주소</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <button type="submit">계정 찾기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

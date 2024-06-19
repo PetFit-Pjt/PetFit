@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT FAQ</title>
+  <link rel="stylesheet" th:href="@{/css/FAQ.css}">
+  <link rel="stylesheet" href="/css/FAQ.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+	<!-- 헤더 포함 -->
+	<div th:insert="~{header_common :: header}"></div>
+	
+  <main>
+  
+      <div class="question-list">
+      <div class="question" onclick="toggleAnswer(1)">
+        <h2>1. 예약은 어떻게 하나요?</h2>
+        <div class="answer" id="answer1">
+          <p>예약은 홈페이지에서 온라인으로 할 수 있으며, 전화로도 가능합니다.</p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(2)">
+        <h2>2. 예약을 변경하거나 취소하려면 어떻게 해야 하나요?</h2>
+        <div class="answer" id="answer2">
+          <p>예약 변경 또는 취소를 위해서는 병원에 직접 연락하여 변경 또는 취소 요청을 할 수 있습니다. 가능한 한 빠르게 변경 또는 취소해주시기 바랍니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(3)">
+        <h2>3. 예약 시 반려동물의 정보가 필요한가요?</h2>
+        <div class="answer" id="answer3">
+          <p>예약을 위해서는 반려동물의 종류, 이름, 나이, 예방 접종 여부 등의 정보가 필요합니다. 이는 예약을 위한 병원의 준비를 돕기 위함입니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(4)">
+        <h2>4. 예약 확인은 어떻게 하나요?</h2>
+        <div class="answer" id="answer4">
+          <p>예약이 완료되면 병원에서 예약 확인 이메일 또는 SMS를 보내드립니다. 또는 마이 페이지에서 예약 내역을 확인할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(5)">
+        <h2>5. 긴급한 상황에서 예약이 필요한 경우 어떻게 해야 하나요?</h2>
+        <div class="answer" id="answer5">
+          <p>긴급한 상황에서는 병원에 바로 전화하여 예약을 요청하시기 바랍니다. 병원은 긴급한 상황에 신속하게 대응할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(6)">
+        <h2>6. 예약 시 결제는 어떻게 이루어지나요?</h2>
+        <div class="answer" id="answer6">
+          <p>일반적으로 예약은 병원 방문 시 현장에서 결제됩니다. 그러나 몇몇 병원은 예약을 위해 선결제를 요구할 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" onclick="toggleAnswer(7)">
+        <h2>7. 반려동물 예방접종 관련 문의는 누구에게 하면 되나요?</h2>
+        <div class="answer" id="answer7">
+          <p>반려동물의 예방접종에 대한 문의는 병원의 수의사 또는 진료 담당자에게 문의하시면 됩니다.
+          </p>
+        </div>
+      </div>
+      <!-- 추가 질문은 여기에 추가하세요 -->
+    </div>
+  
+<!--     
+		<div class="question-list">
+      <div class="question" th:onclick="|toggleAnswer(1)|">
+        <h2>1. 예약은 어떻게 하나요?</h2>
+        <div class="answer" th:id="'answer1'">
+          <p>예약은 홈페이지에서 온라인으로 할 수 있으며, 전화로도 가능합니다.</p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(2)|">
+        <h2>2. 예약을 변경하거나 취소하려면 어떻게 해야 하나요?</h2>
+        <div class="answer" th:id="'answer2'">
+          <p>예약 변경 또는 취소를 위해서는 병원에 직접 연락하여 변경 또는 취소 요청을 할 수 있습니다. 가능한 한 빠르게 변경 또는 취소해주시기 바랍니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(3)|">
+        <h2>3. 예약 시 반려동물의 정보가 필요한가요?</h2>
+        <div class="answer" th:id="'answer3'">
+          <p>예약을 위해서는 반려동물의 종류, 이름, 나이, 예방 접종 여부 등의 정보가 필요합니다. 이는 예약을 위한 병원의 준비를 돕기 위함입니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(4)|">
+        <h2>4. 예약 확인은 어떻게 하나요?</h2>
+        <div class="answer" th:id="'answer4'">
+          <p>예약이 완료되면 병원에서 예약 확인 이메일 또는 SMS를 보내드립니다. 또는 마이 페이지에서 예약 내역을 확인할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(5)|">
+        <h2>5. 긴급한 상황에서 예약이 필요한 경우 어떻게 해야 하나요?</h2>
+        <div class="answer" th:id="'answer5'">
+          <p>긴급한 상황에서는 병원에 바로 전화하여 예약을 요청하시기 바랍니다. 병원은 긴급한 상황에 신속하게 대응할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(6)|">
+        <h2>6. 예약 시 결제는 어떻게 이루어지나요?</h2>
+        <div class="answer" th:id="'answer6'">
+          <p>일반적으로 예약은 병원 방문 시 현장에서 결제됩니다. 그러나 몇몇 병원은 예약을 위해 선결제를 요구할 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="question" th:onclick="|toggleAnswer(7)|">
+        <h2>7. 반려동물 예방접종 관련 문의는 누구에게 하면 되나요?</h2>
+        <div class="answer" th:id="'answer7'">
+          <p>반려동물의 예방접종에 대한 문의는 병원의 수의사 또는 진료 담당자에게 문의하시면 됩니다.
+          </p>
+        </div>
+      </div>
+      추가 질문은 여기에 추가하세요
+    </div> 
+-->
+    
+    <button id="write-button" onclick="openForm()">글쓰기</button>
+    <div class="form-popup" id="myForm">
+      <form class="form-container">
+        <h2>질문하기</h2>
+        <label for="question"><b>질문:</b></label>
+        <textarea id="questionInput" placeholder="질문을 입력해주세요." name="question" required></textarea>
+        <label for="answer"><b>답변:</b></label>
+        <textarea id="answerInput" placeholder="답변을 입력해주세요." name="answer" required></textarea>
+        <button type="button" class="btn" onclick="submitQuestion()">제출</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">취소</button>
+      </form>
+    </div>
+<!--
+    <button id="write-button" th:onclick="|openForm()|">글쓰기</button>
+    <div class="form-popup" th:id="'myForm'">
+      <form class="form-container">
+        <h2>질문하기</h2>
+        <label for="question"><b>질문:</b></label>
+        <textarea id="questionInput" placeholder="질문을 입력해주세요." name="question" required></textarea>
+        <label for="answer"><b>답변:</b></label>
+        <textarea id="answerInput" placeholder="답변을 입력해주세요." name="answer" required></textarea>
+        <button type="button" class="btn" th:onclick="|submitQuestion()|">제출</button>
+        <button type="button" class="btn cancel" th:onclick="|closeForm()|">취소</button>
+      </form>
+    </div> 
+-->
+  </main>
+  <script src="/js/FAQ.js"></script>
+<!--   <script th:src="@{/js/FAQ.js}"></script> -->
+</body>
+</html>

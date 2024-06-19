@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>병원 정보 수정 </title>
+  <link rel="stylesheet" th:href="@{/css/modifyhospital.css}">
+  <link rel="stylesheet" href="/css/modifyhospital.css">
+</head>
+<body>
+  <div class="container">
+    <h1>정보수정</h1>
+    <div class="register-container">
+      <form id="register-form" th:action="@{/modifyhospital}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="hospitalId">아이디</label>
+          <input type="text" id="hospitalId" name="hospitalId" th:value="${Hospital.hospitalId}" required>
+        </div>
+        <div class="form-group">
+          <label for="hospitalPw">비밀번호</label>
+          <input type="password" id="hospitalPw" name="hospitalPw" value="******">
+          <input type="hidden" id="hospitalPwHidden" name="hospitalPw" th:value="${Hospital.hospitalPw}" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">비밀번호 확인</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <div class="form-group">
+          <label for="businessRegistration">사업자 등록번호</label>
+          <input type="text" id="businessRegistration" name="businessRegistration" th:value="${Hospital.businessRegistration}" required>
+        </div>
+        <div class="form-group">
+          <label for="hospitalThumbnail">병원 썸네일</label>
+          <input type="file" id="hospitalThumbnail" name="file">
+        </div>
+        <div class="form-group">
+          <label for="hospitalName">상호명</label>
+          <input type="text" id="hospitalName" name="hospitalName" th:value="${Hospital.hospitalName}" required>
+        </div>
+        <div class="form-group">
+		    <label for="startTime">영업 시작 시간</label>
+		    <input type="time" id="startTime" name="startTime" th:value="${Hospital.startTime}" required>
+		</div>	
+		<div class="form-group">
+		    <label for="endTime">영업 종료 시간</label>
+		    <input type="time" id="endTime" name="endTime" th:value="${Hospital.endTime}" required>
+		</div>
+        <div class="form-group">
+          <label for="hospitalEmail">이메일</label>
+          <input type="email" id="hospitalEmail" name="hospitalEmail" th:value="${Hospital.hospitalEmail}" required>
+        </div>
+        <div class="form-group">
+          <label for="hospitalAddress">주소</label>
+          <input type="text" id="hospitalAddress" name="hospitalAddress" th:value="${Hospital.hospitalAddress}" required>
+        </div>
+        <div class="form-group">
+          <label for="hospitalPhone">전화번호</label>
+          <div class="phone-input">
+            <select id="phone-provider" name="phone-provider">
+              <option value="skt">SKT</option>
+              <option value="kt">KT</option>
+              <option value="lg">LG</option>
+              <option value="알뜰폰">알뜰폰</option>
+            </select>
+            <input type="text" id="hospitalPhone" name="hospitalPhone" th:value="${Hospital.hospitalPhone}" required>
+          </div>
+        </div>
+				<div class="form-group">
+				    <button id="update-btn" type="button">회원정보 수정</button>
+				</div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+	document.getElementById("register-form").addEventListener("submit", function(event) {
+	    var startTime = document.getElementById("startTime").value;
+	    var endTime = document.getElementById("endTime").value;
+	    if (startTime >= endTime) {
+	        alert("종료 시간은 시작 시간보다 늦어야 합니다.");
+	        event.preventDefault(); // 폼 제출 중지
+	    }
+	});
+	
+	
+    document.getElementById("update-btn").addEventListener("click", function() {
+        var hospitalId = document.getElementById("hospitalId").value;
+        var confirmPassword = prompt("병원 비밀번호를 입력하세요:");
+        if (confirmPassword != null) {
+            fetch('/modifyhospital/' + hospitalId, {
+                method: 'POST',
+                body: new FormData(document.getElementById('register-form'))
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 성공적으로 처리된 경우에 대한 동작
+                    alert('병원 정보가 업데이트되었습니다.');
+                    window.location.reload(); // 페이지 리로드
+                } else {
+                    // 처리 중 오류가 발생한 경우에 대한 동작
+                    alert('병원 정보 업데이트 중 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                // 네트워크 오류 등으로 인한 요청 실패에 대한 동작
+                console.error('병원 정보 업데이트 요청 실패:', error);
+                alert('병원 정보 업데이트 요청 실패: ' + error.message);
+            });
+        }
+    });
+</script>
+</body>
+</html>

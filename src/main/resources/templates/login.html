@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+  <div class="container">
+    <h1>로그인</h1>
+    <div class="login-container">
+
+        <!-- 폼 시작 -->
+        <form id="login-form" action="/login" method="POST">
+            <div class="form-group">
+                <label for="userId">사용자명</label>
+                <input type="text" id="userId" name="userId" required>
+            </div>
+            <div class="form-group">
+                <label for="userPw">비밀번호</label>
+                <input type="password" id="userPw" name="userPw" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">로그인</button>
+                <div class="options">
+								<a href="/lookingfor" class="forgot-username">아이디/비밀번호 찾기</a>
+								<a href="/register" class="register">회원가입</a>
+								</div>
+            </div>
+        </form>
+    </div>
+  </div>
+  <!-- JavaScript로 경고 메시지 처리 -->
+  <script>
+		window.onload = function() {
+		    var urlParams = new URLSearchParams(window.location.search);
+		    if (urlParams.get('logout') === 'true') {
+		        alert("로그아웃 되었습니다.");
+		        // 쿼리 파라미터 'logout' 제거하여 URL을 깔끔하게 정리
+		        urlParams.delete('logout');
+		        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+		    }
+		}
+	</script>
+</body>
+</html>

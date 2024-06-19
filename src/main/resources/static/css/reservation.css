@@ -1,0 +1,161 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hospital-logo {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-side, .right-side {
+  width: 45%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+#calendar-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.calendar-header button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+}
+
+.calendar-day {
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.calendar-day.selected {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+#selected-date,
+#selected-time {
+  font-weight: bold;
+  color: #4CAF50; /* 선택한 시간과 날짜의 텍스트 색상 */
+}
+
+.time-slot {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border-radius: 3px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.time-slot.selected {
+  background-color: #ec0d0d;
+  color: #fff;
+}
+
+.time-slot.unavailable {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#selected-appointment {
+  margin-top: 20px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.appointment-history {
+  margin-top: 50px;
+}
+
+.appointment-history h2 {
+  margin-bottom: 20px;
+}
+
+.appointment-item {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

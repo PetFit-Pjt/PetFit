@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+<meta name="_csrf" content="${_csrf.token}" />
+<!-- 파비콘 설정 -->
+<link rel="icon" href="/image/favicon.png">
+<link rel="stylesheet" href="/css/index.css">
+<!-- Font Awesome CDN -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>Form</title>
+<th:block layout:fragment="contentsCss">
+	<link rel="stylesheet" th:href="@{/css/form1.css}">
+	<link rel="stylesheet" href="/css/form1.css">
+</th:block>
+</head>
+
+<body>
+
+	<!-- 헤더 포함 -->
+	<div th:insert="~{header_common :: header}"></div>
+
+	<div class="container" layout:fragment="content">
+		<div class="page-header">
+			<h1 th:text="${board?.idx} ? '게시글 상세' : '게시글 등록'"></h1>
+		</div>
+		<br /> <input id="board_idx" type="hidden" th:value="${board?.idx}" />
+		<input id="board_create_date" type="hidden"
+			th:value="${board?.createdDate}" />
+		<table class="table">
+			<tr>
+				<th style="padding: 13px 0 0 15px;">생성 날짜</th>
+				<td><input type="text" class="form-control input-sm" readonly
+					th:value="${board?.createdDate} ? 
+                                  ${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')} : 
+                                 ${board?.createdDate}" />
+				</td>
+
+			</tr>
+			<tr>
+				<th style="padding: 13px 0 0 15px;">작성자</th>
+				<td><p id="board_writer" class="form-control input-sm"
+						th:text="${currentUserId}" /></td>
+			</tr>
+			<tr>
+				<th style="padding: 13px 0 0 15px;">제목</th>
+				<td><input id="board_title" type="text"
+					class="form-control input-sm" th:value="${board?.title}" /></td>
+			</tr>
+			<tr>
+				<th style="padding: 13px 0 0 15px;">내용</th>
+				<td><textarea id="board_content" class="form-control input-sm"
+						maxlength="140" rows="70" style="height: 200px;"
+						th:text="${board?.content}"></textarea> <span class="help-block"></span>
+				</td>
+			</tr>
+		</table>
+
+		<!-- 댓글 입력란 -->
+<!-- 		
+
+			<th:block th:if="${board?.idx != null}">
+			<h4 style="padding: 13px 0 0 15px;">댓글</h4>
+			<table class="table">
+				<tr>
+					<td><textarea id="commentContent"
+							class="form-control input-sm"></textarea> <span
+						class="help-block"></span></td>
+					<td>
+						<button type="submit" class="btn btn-primary" id="commentok">등록</button>
+					</td>
+				</tr>
+			</table>
+		</th:block> 
+		
+		-->
+
+    <div>
+        <input type="text" id="comment_content" placeholder="댓글을 입력하세요">
+        <input type="hidden" id="currentUserId" th:value="${currentUserId}">
+        <input type="hidden" id="board_idx" th:value="${board?.idx}">
+        <button id="commentok">댓글 등록</button>
+    </div>
+
+	<div th:if="${board?.idx != null}">
+	    <h4 style="padding: 13px 0 0 15px;">댓글 목록</h4>
+	    <table class="table">
+	        <colgroup>
+	            <col width="50px">
+	            <col width="50px">
+	            <col width="50px">
+	        </colgroup>
+	        <tbody id="commentTableBody">
+	            <!-- 댓글이 여기에 동적으로 추가됩니다. -->
+	        </tbody>
+	    </table>
+	</div>
+
+		<!-- 저장/수정/삭제 버튼 -->
+		<div class="pull-right">
+			<a href="/board/list" class="btn btn-success">목록</a>
+			<button th:if="!${board?.idx}" type="button" class="btn btn-primary"
+				id="insert">저장</button>
+			<button th:if="${board?.idx}" type="button" class="btn btn-info"
+				id="update">수정</button>
+			<button th:if="${board?.idx}" type="button" class="btn btn-danger"
+				id="delete">삭제</button>
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</div>
+	</div>
+
+	<th:block layout:fragment="contentsScript">
+	</th:block>
+
+	<th:block layout:fragment="customScript">
+		<!-- jQuery 라이브러리 불러오기 -->
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+         <!-- 신규 등록 -->
+        <script th:if="!${board?.idx}">
+            $("#insert").click(function() {
+                var jsonData = JSON.stringify({
+                    title : $("#board_title").val(),
+                    content : $("#board_content").val()
+                });
+                $.ajax({
+                    url : "http://localhost:8080/board",
+                    type : "POST",
+                    data : jsonData,
+                    contentType : "application/json",
+                    dataType : "json",
+                    success : function() {
+                        alert("저장 성공!");
+                        location.href = "/board/list";
+                    },
+                    error : function() {
+                        alert("저장 실패!");
+                    }
+                });
+            });
+        </script>
+
+        <!-- 수정/삭제 및 댓글 관련 스크립트 -->
+        <script th:if="${board?.idx}">
+            $(document).ready(function() {
+                updateCommentList();
+            });
+
+            // 댓글 등록 폼 제출 처리
+            $("#commentok").click(function(event) {
+                event.preventDefault(); // 폼 제출 방지
+
+                var commentContent = $("#comment_content").val(); // 댓글 내용 가져오기
+                var boardIdx = $("#board_idx").val(); // 게시글 식별자 가져오기
+                var writer = $("#currentUserId").val(); // 현재 사용자 ID 가져오기
+
+                // AJAX를 사용하여 서버로 댓글 전송
+                $.ajax({
+                    url : "/board/" + boardIdx + "/comments",
+                    type : "POST",
+                    contentType : "application/json",
+                    data : JSON.stringify({
+                        content : commentContent,
+                        writer: writer
+                    }),
+                    success : function(data) {
+                        alert("저장 성공!");
+                        // 댓글이 성공적으로 등록된 후에는 댓글 목록을 업데이트합니다.
+                        updateCommentList();
+                    },
+                    error : function() {
+                        alert("댓글 등록에 실패했습니다.");
+                    }
+                });
+            });
+
+            // 댓글 수정 버튼 클릭 이벤트
+            $(document).on('click', '.update-comment', function() {
+                var commentId = $(this).data('id');
+                var newContent = $("#comment_content_" + commentId).val();
+
+                $.ajax({
+                    url: "/board/comments/" + commentId,
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({ content: newContent }),
+                    success: function() {
+                        alert("수정 성공!");
+                        updateCommentList();
+                    },
+                    error: function() {
+                        alert("수정 실패!");
+                    }
+                });
+            });
+
+            // 댓글 삭제 버튼 클릭 이벤트
+            $(document).on('click', '.delete-comment', function() {
+                var commentId = $(this).data('id');
+
+                $.ajax({
+                    url: "/board/comments/" + commentId,
+                    type: "DELETE",
+                    success: function() {
+                        alert("삭제 성공!");
+                        updateCommentList();
+                    },
+                    error: function() {
+                        alert("삭제 실패!");
+                    }
+                });
+            });
+
+            // 댓글 목록 업데이트 함수
+            function updateCommentList() {
+                var boardIdx = $("#board_idx").val(); // 게시글 식별자 가져오기
+                $.ajax({
+                    url: "/board/" + boardIdx + "/comments",
+                    type: "GET",
+                    success: function(data) {
+                        displayComments(data);
+                    },
+                    error: function() {
+                        alert("댓글 목록을 가져오는데 실패했습니다.");
+                    }
+                });
+            }
+
+            // 댓글 목록 표시 함수
+            function displayComments(comments) {
+                var commentTableBody = $("#commentTableBody");
+                commentTableBody.empty(); // 댓글 목록을 비웁니다.
+
+                comments.forEach(function(comment) {
+                    var row = $("<tr>");
+
+                    // 댓글 내용
+                    var contentCell = $("<td>").addClass("comment-container");
+                    var contentInput = $("<input>").attr({
+                        type: "text",
+                        id: "comment_content_" + comment.id,
+                    }).val(comment.content);
+                    contentCell.append(contentInput);
+
+                    // 작성자
+                    var writerCell = $("<td>").text(comment.writer);
+
+                    // 수정 버튼
+                    var updateButton = $("<button>").addClass("update-comment").data("id", comment.id).text("수정");
+
+                    // 삭제 버튼
+                    var deleteButton = $("<button>").addClass("delete-comment").data("id", comment.id).text("삭제");
+
+                    var actionCell = $("<td>").append(updateButton).append(deleteButton);
+
+                    // 행에 열들을 추가
+                    row.append(contentCell, writerCell, actionCell);
+
+                    // 행을 테이블 몸체에 추가
+                    commentTableBody.append(row);
+                });
+            }
+        </script>
+    </th:block>
+
+	
+	<!-- 푸터 포함 -->
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

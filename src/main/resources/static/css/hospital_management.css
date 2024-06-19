@@ -1,0 +1,184 @@
+/* 헤더 영역 */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #3bccf8;
+}
+
+nav .nav-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+nav .nav-buttons a {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+nav .nav-buttons a:hover {
+  background-color: #3bccf8;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-actions .btn {
+  background-color: #3bccf8;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.user-actions .btn:hover {
+  background-color: #2298c4;
+}
+
+/* 메인 영역 */
+
+.hospital-management {
+	height: 400px;
+  padding: 60px 80px;
+  justify-content: center;
+}
+
+h1 {
+	margin-bottom: 30px;
+}
+
+.hospital-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.hospital-update-request,
+.hospital-update,
+.hospital-list {
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hospital-update-request:hover,
+.hospital-update:hover,
+.hospital-list:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hospital-update-request h2 a,
+.hospital-update h2 a,
+.hospital-list h2 a {
+  color: #333;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.hospital-update-request h2 a:hover,
+.hospital-update h2 a:hover,
+.hospital-list h2 a:hover {
+  color: #3bccf8;
+}
+
+.hospital-info-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.existing-hospital-info,
+.update-hospital-info {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 푸터 영역 */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 80px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #3bccf8;
+}
+
+.social-icons a {
+  font-size: 24px;
+  margin-right: 20px;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #3bccf8;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+}

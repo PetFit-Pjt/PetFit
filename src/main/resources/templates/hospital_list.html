@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PETFIT - 병원 관리</title>
+	<link rel="stylesheet" th:href="@{/css/hospital_list.css}">
+	<link rel="stylesheet" href="/css/hospital_list.css">
+</head>
+
+<body>
+	<div class="container">
+		<h1>병원 관리</h1>
+		<table id="member-table">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>연락처</th>
+					<th>이메일</th>
+					<th>주소</th>
+					<th>상태</th>
+					<th>작업</th>
+				</tr>
+			</thead>
+			<tbody th:each="hospital : ${hospitals}">
+				<tr>
+					<td th:text="${hospital.hospitalId}"></td>
+					<td th:text="${hospital.hospitalName}"></td>
+					<td th:text="${hospital.hospitalPhone}"></td>
+					<td th:text="${hospital.hospitalEmail}"></td>
+					<td th:text="${hospital.hospitalAddress}"></td>
+					<td th:text="${hospital.approved ? '승인됨' : '승인 대기 중'}"></td>
+					<td>
+						<button th:if="${!hospital.approved}" th:attr="data-hospital-id=${hospital.hospitalId}"
+							onclick="approveHospital(this)">승인</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="/js/hospital_list.js"></script>
+	<script>
+	    function approveHospital(button) {
+	        var hospitalId = button.getAttribute('data-hospital-id'); // 버튼의 data-hospital-id 속성에서 hospitalId를 가져옴
+	        fetch('/hospital_list/' + hospitalId, {method: 'POST'})
+	            .then(response => {
+	                if (response.ok) {
+	                    var row = button.closest('tr');
+	                    row.cells[5].textContent = '승인됨';
+	                    button.remove(); // 승인 버튼 제거
+	                    alert('병원 #' + hospitalId + '이(가) 승인되었습니다.');
+	                } else {
+	                    throw new Error('HTTP status ' + response.status);
+	                }
+	            })
+	            .catch(error => {
+	                alert('병원 승인 중 오류가 발생했습니다: ' + error.message);
+	            });
+	    }
+	</script>
+</body>
+</html>

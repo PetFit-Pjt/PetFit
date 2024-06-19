@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 아이 반려동물 등록</title>
+    <link rel="stylesheet" href="/css/myPetRegister.css">
+</head>
+
+<body>
+    <h1>우리 아이 반려동물 등록 양식</h1>
+    <form id="PetRegistrationForm" th:action="@{/myPetRegister}" method="post">
+        <div>
+            <label for="chipNum">칩 번호</label>
+            <input type="text" id="chipNum" name="chipNum" th:value="${Pet.chipNum}" required>
+        </div>
+        <div>
+            <label for="PetName">반려동물 이름</label>
+            <input type="text" id="PetName" name="PetName" th:value="${Pet.PetName}" required>
+        </div>
+        <div>
+            <label for="gender">성별</label>
+            <select id="gender" name="gender" required>
+                <option value="" disabled th:selected="true">성별 선택</option>
+                <option value="male" th:selected="${Pet.gender == 'male'}">수컷</option>
+                <option value="female" th:selected="${Pet.gender == 'female'}">암컷</option>
+                <option value="other" th:selected="${Pet.gender == 'other'}">기타</option>
+            </select>
+        </div>
+        <div>
+            <label for="PetAge">나이</label>
+            <input type="number" id="PetAge" name="PetAge" th:value="${Pet.PetAge}" required>
+        </div>
+        <div>
+            <label for="vaccination">예방접종</label>
+            <input type="text" id="vaccination" name="vaccination" th:value="${Pet.vaccination}" required>
+        </div>
+        <div>
+            <label for="disease">질병</label>
+            <input type="text" id="disease" name="disease" th:value="${Pet.disease}" required>
+        </div>
+        <div>
+            <label for="species">종</label>
+            <input type="text" id="species" name="species" th:value="${Pet.species}" required>
+        </div>
+        <div>
+            <label for="breed">품종</label>
+            <input type="text" id="breed" name="breed" th:value="${Pet.breed}" required>
+        </div>
+        <button type="submit">등록</button>
+    </form>
+    <script src="/js/myPetRegister.js"></script>
+</body>
+
+</html>

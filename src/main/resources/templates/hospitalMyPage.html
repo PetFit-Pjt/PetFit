@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/hospital_management.css}">
+  <link rel="stylesheet" href="/css/hospital_management.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <title>PETFIT - 병원 마이페이지</title>
+</head>
+<body>
+ <div th:insert="~{header_h_common :: header}"></div>
+  <main>
+    <section class="hospital-management">
+      <h1>병원 마이페이지</h1>
+      <div class="hospital-actions">
+        <div class="hospital-update-request">
+          <h2><a th:href="@{/modifyhospital/hospital1}">병원 정보 수정</a></h2>
+        </div>
+        <div class="hospital-update">
+          <h2><a th:href="@{/appointment_list}">예약 관리</a></h2>
+        </div>
+        <div class="hospital-list">
+          <h2><a th:href="@{/search}">병원 목록</a></h2>
+          <!-- 병원 목록 표시 -->
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- 푸터 포함 -->
+<div th:insert="~{footer.html}"></div>
+  
+  <script th:src="@{/js/hospital_management.js}"></script>
+  <script src="/js/hospital_management.js"></script>
+</body>
+</html>

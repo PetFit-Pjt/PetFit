@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT - 예약</title>
+  <link rel="stylesheet" th:href="@{/css/reservation.css}">
+  <link rel="stylesheet" href="/css/reservation.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="/image/hos_logo_02.png" alt="병원 로고" class="hospital-logo">
+    </div>
+    <div class="content">
+      <div class="left-side">
+        <h1>예약하기</h1>
+      	<form th:action="@{/appointment}" method="post" id="appointment-form">
+          <div class="form-group">
+            <label for="medicalNotes">서비스</label>
+            <select id="medicalNotes" name="medicalNotes" required>
+                <option th:each="service : ${services}" th:value="${service}" th:text="${service}"></option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label for="userName">유저 이름</label>
+              <input type="text" id="userName" name="userName" th:value="${userName}" required>
+          </div>
+          <div class="form-group">
+              <label for="petName">반려동물</label>
+              <input type="text" id="petName" name="petName" th:value="${petName}" required>
+          </div>
+          <div class="form-group">
+              <label for="hospitalName">병원 이름</label>
+              <input type="text" id="hospitalName" name="hospitalName" th:value="${hospitalName}" required>
+          </div>
+        </div>
+        <div class="right-side">
+          <h2>예약 날짜 선택</h2>
+          <div id="calendar-container"></div>
+          <h2>예약 가능한 시간</h2>
+          <div id="time-slots">
+            <!-- 예약 가능한 시간들이 동적으로 추가됩니다 -->
+       	    <div class="time-slot" id="slot-01">01:00</div>
+            <div class="time-slot" id="slot-02">02:00</div>
+            <!-- 나머지 시간 슬롯들 생략 -->
+          </div>
+          <div id="selected-appointment">
+            <h2>선택한 예약</h2>
+            <p>날짜: <span id="selected-date"></span></p>
+            <p>시간: <span id="selected-time"></span></p>
+          </div>
+          <button type="submit" class="btn">예약하기</button>
+        </div>
+      </div>
+      <div class="appointment-history">
+        <h2>예약 내역</h2>
+        <div id="appointment-list">
+          <!-- 예약 상세정보가 여기에 동적으로 추가됩니다 -->
+        </div>
+      </div>
+  	  </form>
+    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var appointmentForm = document.getElementById('appointment-form');
+    appointmentForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 제출 동작 방지
+        
+        // 선택한 날짜와 시간 가져오기
+        var selectedDate = document.getElementById('selected-date').textContent;
+        var selectedTime = document.getElementById('selected-time').textContent;
+        
+        // 예약 데이터 생성
+        var formData = {
+            appointmentDateTime: selectedDate + ' ' + selectedTime, // 날짜와 시간을 합쳐서 생성
+            userName: document.getElementById('userName').value,
+            petName: document.getElementById('petName').value,
+            hospitalName: document.getElementById('hospitalName').value,
+            // 이 외에 필요한 데이터가 있다면 추가
+        };
+        
+        // AJAX를 사용하여 서버로 데이터 전송
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/your-server-endpoint-url', true); // 서버 엔드포인트 URL로 대체해야 함
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log('예약이 성공적으로 완료되었습니다.');
+                // 성공적으로 예약을 처리한 후 할 일
+            } else {
+                console.error('예약을 처리하는 동안 오류가 발생했습니다:', xhr.statusText);
+                // 예약 처리 중 오류가 발생한 경우 처리
+            }
+        };
+        xhr.onerror = function() {
+            console.error('예약을 처리하는 동안 네트워크 오류가 발생했습니다.');
+            // 네트워크 오류 발생 시 처리
+        };
+        xhr.send(JSON.stringify(formData));
+    });
+});
+</script>
+
+  <script src="/js/reservation.js"></script>
+</body>
+</html>

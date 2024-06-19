@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT - 예약 내역</title>
+  <link rel="stylesheet" href="/css/userReservation.css">
+<!--  <link rel="stylesheet" th:href="@{/userReservation.css}"> -->
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a th:href="@{/userMyPage.html}"><img src="image/hos_logo_01.jpg" alt="병원 로고" class="hospital-logo"></a>
+    </div>
+    <div class="content">
+      <h1>예약 내역</h1>
+      <div id="appointment-list">
+        <!-- 예약 상세정보가 여기에 동적으로 추가됩니다 -->
+      </div>
+    </div>
+  </div>
+<!--   <script th:src="@{/userReservation.js}"></script> -->
+  <script src="/js/userReservation.js"></script>
+</body>
+</html>

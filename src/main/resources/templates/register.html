@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반려동물 병원 예약 시스템</title>
+  <link rel="stylesheet" href="/css/register.css">
+	<link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+  <div class="container">
+    <h1>회원가입</h1>
+    <div class="register-container">
+      <form id="register-form" th:action="@{/register}" method="post">
+        <div class="form-group">
+          <label for="userId">아이디</label>
+          <input type="text" id="userId" name="userId" th:value="${User.userId}" required>
+        </div>
+        <div class="form-group">
+          <label for="userPw">비밀번호</label>
+          <input type="password" id="userPw" name="userPw" th:value="${User.userPw}" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">비밀번호 확인</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <div class="form-group">
+          <label for="userName">이름</label>
+          <input type="text" id="userName" name="userName" th:value="${User.userName}" required>
+        </div>
+        <div class="form-group">
+          <label for="userBirth">생년월일</label>
+          <input type="text" id="userBirth" name="userBirth" th:value="${User.userBirth}" placeholder="YYYYMMDD" required>
+        </div>
+        <div class="form-group">
+          <label for="userEmail">이메일</label>
+          <input type="email" id="userEmail" name="userEmail" th:value="${User.userEmail}" required>
+        </div>
+        <div class="form-group">
+          <label for="userAddress">주소</label>
+          <input type="text" id="userAddress" name="userAddress" th:value="${User.userAddress}" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">전화번호</label>
+          <div class="phone-input">
+            <select id="phone-provider" name="phone-provider">
+              <option value="skt">SKT</option>
+              <option value="kt">KT</option>
+              <option value="lg">LG</option>
+              <option value="알뜰폰">알뜰폰</option>
+              <option value="유선전화">유선</option>
+            </select>
+            <input type="text" id="userPhone" name="userPhone" th:value="${User.userPhone}" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit">회원가입</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  <script src="/js/register.js"></script>
+  <script th:src="@{/js/register.js}"></script>
+</body>
+</html>
