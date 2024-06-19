@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/notice.css}">
+  <link rel="stylesheet" href="/css/notice.css">
+  <title>PETFIT - Notice Board</title>
+</head>
+<body>
+
+  <main>
+    <section class="notice-board">
+      <div class="notice-header">
+        <h1>공지사항</h1>
+        <div class="notice-filters">
+          <select>
+            <option value="">전체</option>
+            <option value="event">이벤트</option>
+            <option value="update">업데이트</option>
+            <option value="announcement">공지</option>
+          </select>
+          <input type="text" placeholder="검색어를 입력하세요" />
+          <button class="search-btn">검색</button>
+        </div>
+      </div>
+      <div class="notice-list">
+        <div class="notice-item">
+          <div class="notice-date">2023-04-25</div>
+          <div class="notice-title">PETFIT 앱 업데이트 안내</div>
+          <div class="notice-type">업데이트</div>
+        </div>
+        <div class="notice-item">
+          <div class="notice-date">2023-04-15</div>
+          <div class="notice-title">반려동물 건강 세미나 개최 안내</div>
+          <div class="notice-type">이벤트</div>
+        </div>
+        <div class="notice-item">
+          <div class="notice-date">2023-04-05</div>
+          <div class="notice-title">신규 서비스 오픈 안내</div>
+          <div class="notice-type">공지</div>
+        </div>
+        <!-- Add more notice items -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>

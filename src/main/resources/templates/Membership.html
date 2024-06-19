@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/Membership.css">
+  <title>PETFIT Membership</title>
+  <link rel="stylesheet" href="/css/index_header.css">
+</head>
+<body>
+
+	<div th:insert="~{header_common :: header}"></div>
+	
+  <main>
+    <section class="hero">
+      <div class="membership-details">
+        <h2>반려동물 멤버십 구독권</h2>
+        <p>반려동물을 위한 독점적인 할인 및 서비스에 접근하세요.</p>
+      </div>
+      <img src="/image/펫핏_02.png" alt="Membership">
+    </section>
+
+    <section class="membership-details">
+      <div class="membership-info">
+        <div class="info">
+          <h2>펫핏 멤버십으로 독점 혜택 얻기</h2>
+          <p>할인된 수의사 서비스<br>예약 우선권<br>전용 반려동물 건강 상담 라인 이용<br>특별 할인 및 프로모션</p>
+          <a href="/pay" class="btn" onclick="showAlert()">지금 구독하기</a>
+        </div>
+        <div class="membership-card">
+          <img src="/image/펫핏_02.png" alt="Membership Card">
+        </div>
+        <div class="cta-container">
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+	  document.addEventListener("DOMContentLoaded", function() {
+		    if (window.location.pathname === "/membership") {
+		        var isLoggedIn = false; // 로그인 여부를 저장하는 변수
+		        // 로그인 여부를 확인하고, 로그인이 안 돼 있으면 경로 이동을 막습니다.
+		        if (!isLoggedIn) {
+		            alert("로그인이 필요합니다.");
+		            window.location.href = "/login"; // 로그인 페이지로 이동하도록 설정
+		        }
+		    }
+		});
+  </script>
+</body>
+</html>

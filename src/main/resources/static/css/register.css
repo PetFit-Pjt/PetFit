@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* 로그인 폼을 화면 가운데에 정렬 */
+  align-items: center; /* 세로 정렬 */
+  height: 100vh; /* 화면 전체 높이에 맞게 조절 */
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 800px;
+  width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #f9f9f9; /* 밝은 배경색 */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 입체감 있는 그림자 효과 */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #444; /* 제목 색상을 어두운 회색으로 지정 */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555; /* 라벨 색상을 어두운 회색으로 지정 */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  width: 94%;
+  padding: 12px; /* 패딩을 더 크게 조절하여 입력창 크기를 키움 */
+  border: 1px solid #ddd;
+  border-radius: 5px; /* 더 둥근 모서리를 가진 입력창 */
+  font-size: 16px;
+  margin-top: 5px; /* 상단 간격 추가 */
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 12px; /* 버튼 크기를 키움 */
+  margin: 40px 0px;
+  color: white;
+  background-color: #414141;
+  border-radius: 5px;
+  font-weight: 800;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  color: black;
+  background-color: rgb(85, 255, 198);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.options a {
+  color: #666;
+  text-decoration: none;
+}
+
+.options a:hover {
+  color: #333;
+}
+
+.phone-input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.phone-input select {
+  margin-right: 10px;
+}
+
+.pet-container {
+  margin-top: 20px;
+}

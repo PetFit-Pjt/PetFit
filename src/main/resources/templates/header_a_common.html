@@ -1,0 +1,31 @@
+<header>
+  <nav>
+	<div class="logo">
+	  <a th:href="@{/index}">
+		<img src="/image/펫핏.png" alt="PETFIT Logo">
+	  </a>
+	</div>
+	<ul>
+    <li><a href="pay">멤버십 관리</a></li>
+    <li><a href="member_management">회원 관리</a></li>
+    <li><a href="hospital_management">병원 관리</a></li>
+    <li><a href="appointment_list">예약 관리</a></li>
+    <li><a href="customer">고객센터</a></li>
+  </ul>
+<!-- 	<div th:if="${isLoggedIn}" class="user-actions"> -->
+	<div class="user-actions">
+	  <!-- 로그인 했을 때 보여줄 내용 -->
+	  <form action="/logout" method="post">
+		<button type="submit" class="btn">로그아웃</button>
+	  </form>
+	  <a href="/userMyPage" class="btn">마이페이지</a>
+	</div>
+<!-- 	<div th:if="${!isLoggedIn}" class="user-actions"> 
+	<div class="user-actions">
+	  <!-- 로그인 하지 않았을 때 보여줄 내용 >
+	  <a href="/login" class="btn">로그인</a>
+	  <a href="/register" class="btn">회원가입</a>
+	</div>
+-->	
+  </nav>
+</header>

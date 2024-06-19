@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+ 
+    <head>
+        <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">게시판</title>
+        <th:block th:replace="fragments/config :: config"></th:block>
+    </head>
+    
+    <body>
+        <header th:replace="fragments/header :: header"></header>
+        
+        <div id="wrapper" class="wrapper">
+            <div layout:fragment="content">
+            </div>
+        </div>
+        
+        <th:block th:replace="fragments/script :: script"></th:block>
+    </body>
+    
+</html>

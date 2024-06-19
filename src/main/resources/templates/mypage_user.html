@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PETFIT - 회원 정보</title>
+<link rel="stylesheet" th:href="@{/css/mypage_user.css}">
+<link rel="stylesheet" href="/css/mypage_user.css">
+<link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+
+	<!-- 헤더 포함 -->
+	<div th:insert="~{header_common :: header}"></div>
+
+	<div class="container">
+		<h1>사용자 관리</h1>
+		<table id="member-table">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>비밀번호</th>
+					<th>이름</th>
+					<th>연락처</th>
+					<th>이메일</th>
+					<th>주소</th>
+					<th>생일</th>
+					<th>작업</th>
+				</tr>
+			</thead>
+			<tbody th:each="user : ${User}">
+				<tr>
+					<td th:text="${user.userId}"></td>
+					<td class="password" th:text="${user.userPw}"></td>
+					<td th:text="${user.userName}"></td>
+					<td th:text="${user.userPhone}"></td>
+					<td th:text="${user.userEmail}"></td>
+					<td th:text="${user.userAddress}"></td>
+					<td th:text="${user.userBirth}"></td>
+					<td>
+						<button type="button"
+							th:attr="onclick='window.location.href=\'/modifyregister?userId=' + ${user.userId} + '\''">수정</button>
+						<button type="button"
+							th:attr="onclick='location.href=\'/deleteUser?userId=' + ${user.userId} + '\''">탈퇴</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var passwordCells = document.querySelectorAll('td.password');
+			passwordCells.forEach(function(cell) {
+				cell.textContent = '*******';
+			});
+		});
+	</script>
+	
+	<div th:insert="~{footer :: footer}"></div>
+
+</body>
+
+</html>

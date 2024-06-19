@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT - 멤버십 내역</title>
+  <link rel="stylesheet" href="/css/userMembership.css">
+</head>
+<body>
+  <div class="container">
+    <div class="membership-card">
+      <div class="card-front">
+        <div class="card-image">
+          <img src="/image/펫핏_02.png" alt="Membership Image">
+        </div>
+        <div class="card-content">
+          <h2>멤버십 혜택</h2>
+          <p>- 예약 접수 가능</p>
+          <p>- 미용 서비스 할인</p>
+          <p>- 예방 접종 할인</p>
+        </div>
+      </div>
+		<div class="card-back">
+		    <div class="card-info" th:if="${not #lists.isEmpty(memberships)}">
+		        <p th:text="|가입일: ${memberships[0].startDate}|"></p>
+		        <p th:text="|만료일: ${memberships[0].endDate}|"></p>
+		        <p th:text="|결제 내역: ${memberships[0].membershipId}|"></p>
+		    </div>
+		</div>
+    </div>
+  </div>
+</body>
+</html>

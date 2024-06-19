@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/hospital-update-form1.css}">
+  <link rel="stylesheet" href="/css/hospital-update-form1.css">
+  <title>PETFIT - 병원 정보 수정</title>
+</head>
+<body>
+  <main>
+    <section class="hospital-update-form">
+      <h1>병원 정보 수정</h1>
+      <div class="hospital-info-container">
+        <div class="existing-hospital-info">
+          <h2>기존 병원 정보</h2>
+          <form>
+            <label for="hospital-id">병원 ID</label>
+            <input type="text" id="hospital-id" name="hospital-id" value="12345" disabled>
+            
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" value="********" disabled>
+            
+            <label for="name">상호명</label>
+            <input type="text" id="name" name="name" value="병원 A" disabled>
+            
+            <label for="business-hours">영업시간</label>
+            <input type="text" id="business-hours" name="business-hours" value="09:00 - 18:00" disabled>
+            
+            <label for="business-license">사업자 등록증</label>
+            <input type="file" id="business-license" name="business-license" disabled>
+            
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" value="02-1234-5678" disabled>
+            
+            <label for="address">주소</label>
+            <textarea id="address" name="address" rows="3" disabled>서울특별시 강남구 역삼동 123번지</textarea>
+            
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" value="info@hospitala.com" disabled>
+            
+            <label for="registration-date">가입승인일</label>
+            <input type="text" id="registration-date" name="registration-date" value="2023-01-01" disabled>
+            
+            <label for="update-date">정보변경일</label>
+            <input type="text" id="update-date" name="update-date" value="2023-03-15" disabled>
+          </form>
+        </div>
+        <div class="update-hospital-info">
+          <h2>수정 요청 정보</h2>
+          <form>
+            <label for="hospital-id">병원 ID</label>
+            <input type="text" id="hospital-id" name="hospital-id" value="12345">
+            
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" value="********">
+            
+            <label for="name">상호명</label>
+            <input type="text" id="name" name="name" value="병원 A">
+            
+            <label for="business-hours">영업시간</label>
+            <input type="text" id="business-hours" name="business-hours" value="09:00 - 18:00">
+            
+            <label for="business-license">사업자 등록증</label>
+            <input type="file" id="business-license" name="business-license">
+            
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" value="02-1234-5678">
+            
+            <label for="address">주소</label>
+            <textarea id="address" name="address" rows="3">서울특별시 강남구 역삼동 123번지</textarea>
+            
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" value="info@hospitala.com">
+            
+            <label for="registration-date">가입승인일</label>
+            <input type="text" id="registration-date" name="registration-date" value="2023-01-01">
+            
+            <label for="update-date">정보변경일</label>
+            <input type="text" id="update-date" name="update-date" value="2023-03-15">
+            
+            <button type="submit">수정 요청 보내기</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script src="/js/hospital-update-form1.js"></script>
+  <script th:src="@{/js/hospital-update-form1.js}"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT_MY_PET_INFO</title>
+  <link rel="stylesheet" href="/css/mypetInfo.css">
+</head>
+<body>
+  <div class="container">
+    <h1>반려동물 정보</h1>
+    <div class="pet-info-container">
+      <form id="pet-info-form" th:action="@{/updatePetInfo}" method="post">
+        <div class="form-group">
+          <label for="owner-name">반려인 성명</label>
+          <input type="text" id="owner-name" name="owner-name" th:value="${userId}" required>
+        </div>
+        <div class="form-group">
+          <label for="pet-name">반려동물 이름</label>
+          <input type="text" id="pet-name" name="pet-name" th:value="${petName}" required>
+        </div>
+        <div class="form-group">
+          <label for="microchip-number">내장칩 번호</label>
+          <input type="text" id="microchip-number" name="microchip-number" th:value="${chipNum}" required>
+        </div>
+        <div class="form-group">
+          <label for="pet-gender">성별</label>
+          <select id="pet-gender" name="pet-gender" required>
+            <option value="male" th:selected="${gender == 'male'}">수컷</option>
+            <option value="female" th:selected="${gender == 'female'}">암컷</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pet-age">나이</label>
+          <input type="number" id="pet-age" name="pet-age" th:value="${petAge}" required>
+        </div>
+        <div class="form-group">
+          <label for="vaccination">예방 접종 유/무</label>
+          <select id="vaccination" name="vaccination" required>
+            <option value="yes" th:selected="${vaccination == 'yes'}">유</option>
+            <option value="no" th:selected="${vaccination == 'no'}">무</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="special-notes">특이사항</label>
+          <textarea id="special-notes" name="special-notes" th:text="${disease}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="pet-breed">품종</label>
+          <input type="text" id="pet-breed" name="pet-breed" th:value="${breed}" required>
+        </div>
+        <div class="form-group">
+          <label for="pet-type">종류</label>
+          <input type="text" id="pet-type" name="pet-type" th:value="${species}" required>
+        </div>
+        <div class="form-group">
+          <button type="button" id="add-pet-btn">반려동물 추가하기</button>
+          <button type="submit">수정하기</button>
+        </div>
+        <div id="additional-pet-info"></div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="/js/mypetInfo.js"></script>
+</body>
+</html>

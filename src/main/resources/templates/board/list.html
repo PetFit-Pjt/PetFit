@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/default">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 파비콘 설정 -->
+    <link rel="icon" href="/image/favicon.png">
+    <link rel="stylesheet" href="/css/index.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>List</title>
+
+    <!-- Page level plugin CSS-->
+    <th:block layout:fragment="contentsCss">
+        <link rel="stylesheet" th:href="@{/css/list1.css}">
+        <link rel="stylesheet" href="/css/list1.css">
+    </th:block>
+</head>
+
+<body>
+    <!-- header를 작성하지 않아도 header가 이 위치에 구성된다. -->
+    <!-- 헤더 포함 -->
+    <div th:insert="~{header_common :: header}"></div>
+
+    <div class="container" layout:fragment="content">
+
+        <div class="page-header">
+            <h1>PETDOC</h1>
+        </div>
+        <div class="pull-left" style="float: right;">
+            <!-- 변경: pull-right -> pull-left -->
+            <a href="/board" class="btn btn-primary btn-block">등록</a>
+        </div>
+        <br /> <br /> <br />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="warning">
+                        <th class="col-sm-1">No</th>
+                        <th class="col-sm-5">제목</th>
+                        <th class="col-sm-3">작성 날짜</th>
+                        <th class="col-sm-3">수정 날짜</th>
+                        <th class="col-sm-5">작성자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="board, boardIndex : ${boardList}">
+                        <tr>
+                            <td th:text="${boardIndex.index + 1}"></td>
+                            <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                            <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${board.writer}"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div th:if="${board.comments.size() > 0}" class="comment-section">
+                                    <h5>댓글:</h5>
+                                    <ul>
+                                        <li th:each="comment : ${board.comments}">
+                                            <p><strong th:text="${comment.writer}"></strong>: <span th:text="${comment.content}"></span></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div th:if="${board.comments.size() == 0}" class="no-comment">
+                                    <p>댓글이 없습니다.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    <!-- 이 위치에 Bootstrap/Jquery core JavaScript가 구성된다. -->
+
+    <!-- Page level plugin JavaScript-->
+    <th:block layout:fragment="contentsScript">
+    </th:block>
+    <!-- Custom scripts for this pages-->
+    <th:block layout:fragment="customScript">
+        <script>
+        $(document).ready(function() {
+            // 페이지 로드 시 각 게시글의 댓글 목록 업데이트
+            updateAllCommentLists();
+        });
+
+        function updateAllCommentLists() {
+            $("div.panel.panel-default").each(function() {
+                var boardIdx = $(this).find("h3.panel-title").text().trim();
+                updateCommentList(boardIdx);
+            });
+        }
+
+        function updateCommentList(boardIdx) {
+            $.ajax({
+                url: "/board/" + boardIdx + "/comments",
+                type: "GET",
+                success: function(data) {
+                    displayComments(boardIdx, data);
+                },
+                error: function() {
+                    console.error("댓글 목록을 가져오는데 실패했습니다.");
+                }
+            });
+        }
+
+        function displayComments(boardIdx, comments) {
+            $("div.panel.panel-default:contains('" + boardIdx + "')").find(".comment-section ul").empty();
+
+            comments.forEach(function(comment) {
+                var commentItem = $("<li>").append(
+                    $("<p>").append(
+                        $("<strong>").text(comment.writer + ": "),
+                        $("<span>").text(comment.content)
+                    )
+                );
+                $("div.panel.panel-default:contains('" + boardIdx + "')").find(".comment-section ul").append(commentItem);
+            });
+
+            if (comments.length == 0) {
+                $("div.panel.panel-default:contains('" + boardIdx + "')").find(".no-comment").show();
+            } else {
+                $("div.panel.panel-default:contains('" + boardIdx + "')").find(".no-comment").hide();
+            }
+        }
+        </script>
+    </th:block>
+
+    <!-- 푸터 포함 -->
+    <div th:insert="~{footer.html}"></div>
+</body>
+</html>

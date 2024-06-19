@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/hospital_update_request.css}">
+  <link rel="stylesheet" href="/css/hospital_update_request.css">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <title>PETFIT - 병원 정보 수정 요청</title>
+</head>
+<body>
+
+
+  <main>
+    <section class="hospital-update-request">
+      <h1>병원 정보 수정 요청</h1>
+      <div class="hospital-list">
+        <h2>수정 요청 병원 목록</h2>
+        <ul>
+          <li><a th:href="@{/hospital-update-form1.html}">병원 A</a></li>
+          <li><a th:href="@{/hospital-update-form1.html}">병원 B</a></li>
+          <li><a th:href="@{/hospital-update-form1.html}">병원 C</a></li>
+          <!-- 더 많은 병원 추가 -->
+        </ul>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PETFIT - Reservation List</title>
+  <link rel="stylesheet" th:href="@{/css/reservation_list.css}">
+  <link rel="stylesheet" href="/css/reservation_list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+</head>
+<body>
+  <header>
+    <h1>예약 요청 내역</h1>
+  </header>
+
+  <main>
+    <section>
+      <form class="filter-container">
+        <div class="filter-row">
+          <div class="filter-item">
+            <label for="date-range">진료일</label>
+            <input type="text" id="date-range" placeholder="날짜 범위 선택">
+          </div>
+          <div class="filter-item">
+            <label for="phone">전화번호</label>
+            <input type="text" id="phone" placeholder="전화번호 입력">
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <label for="date-range">담당의</label>
+            <input type="text" id="date-range" placeholder="담당의">
+          </div>
+          <div class="filter-item">
+            <label for="phone">환자명</label>
+            <input type="text" id="phone" placeholder="환자명">
+          </div>
+        </div>
+        <div class="filter-row">
+          <input type="submit" value="조회하기" id="search-btn">
+        </div>
+      </form>
+
+      <table id="reservation-table">
+        <thead>
+          <tr>
+            <th>진료일</th>
+            <th>전화번호</th>
+            <th>진료 내용</th>
+            <th>환자명</th>
+            <th>반려동물 종류</th>
+            <th>담당의</th>
+            <th>확정</th>
+            <th>취소</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2024-04-10</td>
+            <td>010-1234-5678</td>
+            <td>진료</td>
+            <td>미미</td>
+            <td>고양이</td>
+            <td>김의사</td>
+            <td><button class="confirm-btn">확정</button></td>
+            <td><button class="cancel-btn">취소</button></td>
+          </tr>
+          <tr>
+            <td>2024-04-11</td>
+            <td>010-2345-6789</td>
+            <td>예방 접종</td>
+            <td>뽀로로</td>
+            <td>개</td>
+            <td>이의사</td>
+            <td><button class="confirm-btn">확정</button></td>
+            <td><button class="cancel-btn">취소</button></td>
+          </tr>
+          <tr>
+            <td>2024-04-12</td>
+            <td>010-3456-7890</td>
+            <td>미용</td>
+            <td>둘리</td>
+            <td>개</td>
+            <td>박의사</td>
+            <td><button class="confirm-btn">확정</button></td>
+            <td><button class="cancel-btn">취소</button></td>
+          </tr>
+          <tr>
+            <td>2024-04-13</td>
+            <td>010-4567-8901</td>
+            <td>수술</td>
+            <td>짱구</td>
+            <td>개</td>
+            <td>최의사</td>
+            <td><button class="confirm-btn">확정</button></td>
+            <td><button class="cancel-btn">취소</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button id="prev-page">이전</button>
+        <span id="current-page">1</span>
+        <button id="next-page">다음</button>
+      </div>
+    </section>
+  </main>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+  <script src="@{/js/reservation_list.js}"></script>
+  <script src="/js/reservation_list.js"></script>
+</body>
+</html>

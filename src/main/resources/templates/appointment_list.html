@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>예약 목록</title>
+<link rel="stylesheet" href="/css/appointment_list.css">
+<link rel="stylesheet" href="/css/index.css">
+</head>
+
+
+<body>
+
+	<!-- 헤더 포함 -->
+	<div th:insert="~{header_h_common :: header}"></div>
+
+	<div class="container">
+		<h1>예약 목록</h1>
+		<table id="member-table">
+			<thead>
+				<tr>
+					<th>예약 번호</th>
+					<th>반려동물 이름</th>
+					<th>예약 이름</th>
+					<th>예약 일시</th>
+					<th>진료 내용</th>
+					<th>확정 여부</th>
+					<th>확정</th>
+					<th>취소</th>
+				</tr>
+			</thead>
+			<tbody th:each="appointment : ${appointment_lists}">
+				<tr>
+					<td th:text="${appointment.appointmentId}"></td>
+					<td th:text="${appointment.petName}"></td>
+					<td th:text="${appointment.hospitalName}"></td>
+					<td th:text="${appointment.appointmentDateTime}"></td>
+					<td th:text="${appointment.medicalNotes}"></td>
+					<td th:text="${appointment.approved} ? '확정' : '미확정'"></td>
+					<td>
+						<button th:if="${!appointment.approved}"
+							th:attr="data-appointment-id=${appointment.appointmentId}"
+							onclick="approveAppointment(this)">확정</button>
+					</td>
+					<td>
+						<button th:attr="data-appointment-id=${appointment.appointmentId}"
+							onclick="deleteAppointment(this)">취소</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+	    function approveAppointment(button) {
+	        var appointmentId = button.getAttribute('data-appointment-id'); // 버튼의 data-appointment-id 속성에서 appointmentId를 가져옴
+	        fetch('/appointment_list/' + appointmentId, {method: 'POST'})
+	            .then(response => {
+	                if (response.ok) {
+	                    var row = button.closest('tr');
+	                    row.cells[5].textContent = '확정됨';
+	                    button.remove(); // 확정 버튼 제거
+	                    alert('예약 #' + appointmentId + '이(가) 확정되었습니다.');
+	                } else {
+	                    throw new Error('HTTP status ' + response.status);
+	                }
+	            })
+	            .catch(error => {
+	                alert('예약 확정 중 오류가 발생했습니다: ' + error.message);
+	            });
+	    }
+	    
+        function deleteAppointment(button) {
+            var appointmentId = button.getAttribute('data-appointment-id'); // 버튼의 data-appointment-id 속성에서 appointmentId를 가져옴
+            if (confirm('예약 #' + appointmentId + '을(를) 취소하시겠습니까?')) {
+            	fetch('/appointment_list/delete/' + appointmentId, {method: 'DELETE'})
+                    .then(response => {
+                        if (response.ok) {
+                            var row = button.closest('tr');
+                            row.remove(); // 행 삭제
+                            alert('예약 #' + appointmentId + '이(가) 취소되었습니다.');
+                        } else {
+                            throw new Error('HTTP status ' + response.status);
+                        }
+                    })
+                    .catch(error => {
+                        alert('취소되었습니다.');
+                    });
+            }
+        }
+	</script>
+	<!-- 푸터 포함 -->
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

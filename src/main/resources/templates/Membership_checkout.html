@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/Membership_checkout.css}">
+  <link rel="stylesheet" href="/css/Membership_checkout.css">
+  <title>Membership Checkout</title>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="membership-details">
+        <h2>반려동물 멤버십 구독권</h2>
+        <p>Get access to exclusive discounts and services for your pet.</p>
+      </div>
+      <img src="/image/펫핏_02.png" alt="Membership">
+    </section>
+
+    <section class="payment-container">
+      <div class="payment-options">
+        <h2>Choose Your Payment Method</h2>
+        <div class="payment-buttons">
+          <button class="payment-btn">Mobile Payment</button>
+          <button class="payment-btn">Card Payment</button>
+          <button class="payment-btn">Pay</button>
+          <button class="payment-btn">Bank Transfer</button>
+        </div>
+      </div>
+      <div class="payment-summary">
+        <h2>Payment Summary</h2>
+        <div class="payment-details">
+          <p>Membership Plan: <span>Monthly</span></p>
+          <p>Amount: <span>$9.99</span></p>
+        </div>
+        <button class="payment-btn">Complete Payment</button>
+      </div>
+      <div class="payment-image">
+        <img src="/image/펫핏_02.png" alt="Payment Image">
+      </div>
+    </section>
+  </main>
+  <script th:src="@{/js/Membership_checkout.js}"></script>
+  <script src="/js/Membership_checkout.js"></script>
+</body>
+</html>

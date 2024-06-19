@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>예약 목록</title>
+</head>
+<body>
+	<!-- 헤더 포함 -->
+	<div th:insert="~{header_common :: header}"></div>
+
+    <h1>예약 목록</h1>
+    <table border="1">
+        <tr>
+            <th>예약 번호</th>
+            <th>사용자 이름</th>
+            <th>반려동물 이름</th>
+            <th>병원 이름</th>
+            <th>예약 일시</th>
+            <th>진료 내용</th>
+            <th>확정 여부</th>
+        </tr>
+        <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.appointmentId}"></td>
+            <td th:text="${appointment.userName}"></td>
+            <td th:text="${appointment.petName}"></td>
+            <td th:text="${appointment.hospitalName}"></td>
+            <td th:text="${appointment.appointmentDateTime}"></td>
+            <td th:text="${appointment.medicalNotes}"></td>
+            <td th:text="${appointment.approved} ? '확정' : '미확정'"></td>
+        </tr>
+    </table>
+</body>
+</html>

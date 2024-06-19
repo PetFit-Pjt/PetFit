@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 성공</title>
+  <link rel="stylesheet" href="/css/style_lr.css">
+</head>
+<body>
+  <div class="container">
+    <h1>로그인 성공</h1>
+    <p>환영합니다! 로그인에 성공했습니다.</p>
+    <p>곧 적절한 페이지로 리디렉션됩니다.</p>
+    <!-- 원하는 페이지로 이동하는 버튼 -->
+    <a th:href="@{/user}" class="button">홈으로 이동</a>
+    
+     <form method="POST" action="/logout">
+      <button type="submit" class="button">로그아웃</button>
+    </form>
+  </div>
+</body>
+</html>
