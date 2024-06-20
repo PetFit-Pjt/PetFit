@@ -24,50 +24,47 @@
       </div>
     </nav>
   </header>
-  	<section class="search-container">
-		<h1>병원 검색</h1>
-	    <form action="/searchHospital" method="GET">
-	        <div class="search-box">
-	            <input type="text" name="query" placeholder="병원을 검색해주세요..." />
-	            <div class="location-select">
-	                <select name="location">
-	                    <option value="">지역 선택</option>
-	                    <option value="seoul">서울</option>
-	                    <option value="busan">부산</option>
-	                    <option value="daegu">대구</option>
-	                    <!-- 더 많은 지역 옵션 추가 -->
-	                </select>
-	            </div>
-	            <div class="hospital-type">
-	                <select name="type">
-	                    <option value="">병원 유형 선택</option>
-	                    <option value="public">공립병원</option>
-	                    <option value="private">사립병원</option>
-	                    <option value="emergency">응급병원</option>
-	                    <option value="general">종합병원</option>
-	                </select>
-	            </div>
-			            <button type="submit" class="search-btn">검색</button>
-			        </div>
-			    </form>
-			</section>
-  
-    <h1>검색 결과</h1>
-    <ul>
-        <li th:each="hospital : ${hospitals}" class="hospital-card">
-						<div style="width: 200px; height: 150px; background-color: orange;">
-						    <img th:src="${hospital.hospitalThumbnail}" alt="병원 이미지">
-						</div>
-		        <div class="hospital-info">
-	            <h2 th:text="${hospital.hospitalName}"></h2>
-	            <p th:text="${hospital.hospitalAddress}"></p>
-              <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
-          		<p><strong>이메일:</strong> <span th:text="${hospital.hospitalEmail}"></span></p>
-          	  <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
-              <a th:href="@{/appointment}" style="width: 105px" class="reservation-btn">예약하기</a>
-      		  </div>
-            <!-- 필요한 정보들을 표시 -->
-        </li>
-    </ul>
+  <section class="search-container">
+    <h1>병원 검색</h1>
+    <form action="/searchHospital" method="GET">
+      <div class="search-box">
+        <input type="text" name="query" placeholder="병원을 검색해주세요..." />
+        <div class="location-select">
+          <select name="location">
+            <option value="">지역 선택</option>
+            <option value="seoul">서울</option>
+            <option value="busan">부산</option>
+            <option value="daegu">대구</option>
+          </select>
+        </div>
+        <div class="hospital-type">
+          <select name="type">
+            <option value="">병원 유형 선택</option>
+            <option value="public">공립병원</option>
+            <option value="private">사립병원</option>
+            <option value="emergency">응급병원</option>
+            <option value="general">종합병원</option>
+          </select>
+        </div>
+        <button type="submit" class="search-btn">검색</button>
+      </div>
+    </form>
+  </section>
+  <h1>검색 결과</h1>
+  <ul>
+    <li th:each="hospital : ${hospitals}" class="hospital-card">
+      <div class="image-container">
+        <img th:src="@{${hospital.hospitalThumbnailUrl}}" alt="병원 이미지" class="hospital-thumbnail">
+      </div>
+      <div class="hospital-info">
+        <h2 th:text="${hospital.hospitalName}"></h2>
+        <p th:text="${hospital.hospitalAddress}"></p>
+        <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
+        <p><strong>이메일:</strong> <span th:text="${hospital.hospitalEmail}"></span></p>
+        <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
+        <a th:href="@{/appointment}" style="width: 105px" class="reservation-btn">예약하기</a>
+      </div>
+    </li>
+  </ul>
 </body>
 </html>
