@@ -20,16 +20,16 @@ public class ImageUploadController {
         this.imageUploadService = imageUploadService;
     }
 
-    @PostMapping("/modifyhospital/upload")
+    @PostMapping("/uploadImage")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No file uploaded.");
         }
 
         try {
-            // 이미지 업로드 및 저장된 파일의 경로 반환
-            String filePath = imageUploadService.saveImage(file);
-            return ResponseEntity.ok(filePath);
+            // 이미지 업로드 및 저장된 파일명 반환
+            String fileName = imageUploadService.saveImage(file);
+            return ResponseEntity.ok(fileName); // 저장된 파일명 반환
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
