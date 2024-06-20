@@ -26,9 +26,9 @@ public class ImageUploadService {
         // 파일명 설정 (UUID를 사용하여 고유한 파일명 생성)
         String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         // 파일 경로 설정
-        String filePath = uploadDir + File.separator + fileName;
+        String filePath = uploadDir + "/" + fileName;
         // 파일 저장
         file.transferTo(new File(filePath));
-        return filePath; // 저장된 파일의 경로 반환
+        return fileName; // 저장된 파일명 반환 (혹은 전체 경로를 반환할 수도 있음)
     }
 }
