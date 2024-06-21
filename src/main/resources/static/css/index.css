@@ -207,7 +207,7 @@ nav ul a:hover{
   padding: 30px;
   border-radius: 20px; /* 더 둥글게 */
   transition: transform 0.3s, box-shadow 0.3s; /* 변화에 애니메이션 효과 추가 */
-  width: 200px;
+  width: 400px;
   height: 200px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
@@ -321,7 +321,7 @@ nav ul a:hover{
 
   .quick-link {
     width: calc(50% - 10px); /* 퀵 링크가 2개씩 보이도록 너비를 조절합니다. */
-    max-width: 150px; /* 최대 너비 설정 */
+    max-width: 300px; /* 최대 너비 설정 */
     height: 150px;
   }
 
@@ -337,39 +337,98 @@ nav ul a:hover{
 /* About */
 .about {
   display: flex;
-  background-color: #F5F5F5;
+  align-items: center;
+  background-color: #f8f9fa;
   padding: 80px;
+  gap: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .about-content {
   flex: 1;
   padding-right: 60px;
+  animation: fadeInLeft 1s ease-in-out;
 }
 
 .about-content h2 {
-  font-size: 36px;
+  font-size: 2.5rem;
+  color: #343a40;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.about-content h2::after {
+  content: '';
+  width: 80px;
+  height: 5px;
+  background-color: #ff7f50;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  border-radius: 5px;
 }
 
 .about-content p {
-  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #6c757d;
   margin-bottom: 40px;
+}
+
+.btn-member {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #ff7f50;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-member:hover {
+  background-color: #e67246;
+  transform: translateY(-5px);
 }
 
 .about-image {
   flex: 1;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .about-image img {
   width: 100%;
   height: auto;
+  display: block;
 }
 
-.about .btn:hover {
-  font-size: larger;
-  font-weight: bolder;
-  color: rgb(137, 222, 195);
+.about-image img:hover {
+  transform: scale(1.05);
 }
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 
 /* Footer */
 footer {
@@ -426,7 +485,7 @@ footer {
 }
 
 .btn-member {
-	width: 100px;
+	width: 150px;
 	height: 45px;
   color: white;
   background-color: #414141;
