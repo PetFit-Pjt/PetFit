@@ -31,12 +31,15 @@ ul {
   list-style-type: none;
 }
 
-/* Header */
+/* 헤더와 네비게이션 */
 header {
   background-color: #ffffff;
   color: #000;
   padding: 10px;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo img {
@@ -46,18 +49,32 @@ header {
 
 nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
-nav ul {
-  display: flex;
-  gap: 20px;
+.nav-links {
+  flex: 2;
 }
+
+.nav-links ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 40px;
+  z-index: 100;
+}
+
 
 .user-actions {
   display: flex;
-  gap: 10px;
+  justify-content: flex-end; /* 로그인/회원가입 버튼을 오른쪽에 정렬 */
+  align-items: center;
+  gap: 20px;
 }
 
 .user-actions .btn {
@@ -69,9 +86,25 @@ nav ul {
   border: none;
 }
 
+.icon-container {
+  flex: 1; /* 아이콘 컨테이너를 오른쪽 끝으로 밀어냄 */
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .user-actions .btn:hover {
   background-color: #55ffc6;
   color: black;
+}
+
+.nav-toggle,
+.user-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  margin-left: 10px; 
 }
 
 /* Button Styles */
@@ -103,6 +136,7 @@ nav ul {
   color: #000;
   position: relative;
   margin-bottom: 40px;
+  padding: 120px 80px;
 }
 
 .hero h1 {
@@ -229,6 +263,10 @@ nav ul {
   right: 10px;
 }
 
+#prevButton, #nextButton {
+	margin-top: 45px;
+}
+
 .slider-button:hover {
   color: #000;
   background-color: rgba(255, 255, 255, 0.5);
@@ -248,14 +286,7 @@ nav ul {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.about:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
 .about-content {
-  flex: 1;
-  padding-right: 0;
   text-align: center;
 }
 
@@ -303,10 +334,12 @@ nav ul {
 }
 
 .about-image {
-  flex: 1;
+  width: 100%;
+  max-width: 800px; /* 이미지 최대 너비 설정 */
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .about-image img {
@@ -360,15 +393,159 @@ footer {
   font-size: 14px;
 }
 
-/* Media Queries */
-@media (min-width: 768px) {
-  .hero {
-    padding: 120px 80px;
+/* 로그인/회원가입 버튼 아이콘 숨기기 */
+@media (max-width: 768px) {
+  .user-actions .btn {
+    display: none;
   }
 
-  .logo img {
-    width: 130px;
-    height: auto;
+  .user-actions.show .btn {
+    display: block;
+  }
+
+  .nav-toggle, .user-toggle {
+    display: block;
+    /* 작은 화면에서 토글 버튼 보이기 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    margin-left: auto;
+  }
+
+  .user-actions {
+    display: none; /* 초기에 숨김 */
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+    z-index: 100;
+  }
+  
+  .user-actions.show {
+    display: flex; /* 토글 버튼 클릭 시 보이도록 변경 */
+    flex-direction: column;
+    right: 0;
+  }
+
+  .icon-container {
+	  display: flex;
+	  justify-content: flex-end;
+	  align-items: center;
+	  margin-left: 400px;
+  }
+
+  nav .nav-links,
+  .user-actions {
+    display: none;
+    /* 초기에 네비게이션 메뉴 및 로그인/회원가입 버튼 숨김 */
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+  }
+
+  nav .nav-links.show,
+  .user-actions.show {
+    display: flex;
+    /* 토글 버튼 클릭 시 보이도록 변경 */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .nav-links ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  gap: 20px;
+  z-index: 100;
+}
+  
+}
+
+/* 대화형 요소 스타일 */
+.hero {
+  position: relative;
+  /* hero section의 자식 요소들이 절대 위치로 배치될 수 있도록 설정 */
+  z-index: 1;
+  /* hero section의 배경 이미지 위에 배치될 수 있도록 z-index 설정 */
+  padding: 120px 80px;
+  /* 여기에도 padding 추가 */
+  text-align: center;
+  /* hero section의 자식 요소들 가운데 정렬 */
+}
+
+.logo img {
+  width: 130px;
+  height: auto;
+}
+
+.quick-links {
+  display: flex;
+  justify-content: center;
+}
+
+.quick-link {
+  width: 50%;
+  max-width: 150px;
+  text-align: center;
+  margin: 10px;
+}
+
+.quick-link i {
+  font-size: 2rem;
+}
+
+.quick-link span {
+  font-size: 16px;
+}
+
+@media (min-width: 1024px) {
+   .about {
+    flex-direction: row; 
+    align-items: flex-start; 
+    gap: 80px;
+    padding: 80px; 
+  }
+
+  .about-content {
+    text-align: left; 
+    max-width: 50%; 
+  }
+
+  .about-image {
+    max-width: 50%;
+  }
+
+  .about-image img:hover {
+    transform: scale(1.05); 
+  }
+}
+
+/* 데스크톱 뷰 스타일 */
+@media (min-width: 768px) {
+  .hero {
+    text-align: left;
   }
 
   .quick-links {
@@ -376,45 +553,16 @@ footer {
   }
 
   .quick-link {
-    width: calc(50% - 10px);
-    max-width: 300px;
-    height: 150px;
+     max-width: 200px;
   }
 
-  .quick-link i {
-    font-size: 2rem;
+  .nav-links {
+    justify-content: center;
+    flex: 1; 
   }
 
-  .quick-link span {
-    font-size: 16px;
+  .user-actions {
+    justify-content: flex-end;
+    align-items: center;
   }
-  
-/* Media Queries */
-@media (min-width: 768px) {  
-  
-    .about {
-    flex-direction: row;
-  }
-
-  .about-content {
-    padding-right: 60px;
-    text-align: left;
-  }
-
-  .about-content h2::after {
-    left: 0;
-    transform: none;
-  }
-
-  .about-image {
-    margin-left: 20px;
-  }
-}
-  
-  
-  @media (min-width: 1024px) {
-  .nav ul {
-    gap: 60px;
-  }
-  
 }
