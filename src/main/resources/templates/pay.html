@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -225,5 +225,16 @@
 
 
 		</div>
+		<script>
+		  // 햄버거 메뉴 클릭 시 네비게이션 토글
+		  document.querySelector('.nav-toggle').addEventListener('click', function () {
+		    document.querySelector('.nav-links').classList.toggle('show');
+		  });
+		
+		  // 유저 아이콘 클릭 시 유저 액션 토글
+		  document.querySelector('.user-toggle').addEventListener('click', function () {
+		    document.querySelector('.user-actions').classList.toggle('show');
+		  });
+		</script>
   </body>
 </html>
