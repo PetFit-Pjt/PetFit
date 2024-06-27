@@ -12,8 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.port.petfit.config.PasswordUtil;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -28,10 +26,7 @@ public class HospitalService {
     public void registerHospital(Hospital hospital) {
         String encodedPassword = passwordEncoder.encode(hospital.getHospitalPw());
         hospital.setHospitalPw(encodedPassword);
-
-        // 기본 이미지 URL 설정
         hospital.setHospitalThumbnailUrl("/images/default_thumbnail.png");
-
         hospitalRepository.save(hospital);
     }
 
@@ -68,7 +63,7 @@ public class HospitalService {
 
     public Hospital authenticate(String hospitalId, String hospitalPw) {
         Hospital hospital = hospitalRepository.findByHospitalId(hospitalId);
-        if (hospital != null && PasswordUtil.matches(hospitalPw, hospital.getHospitalPw())) {
+        if (hospital != null && passwordEncoder.matches(hospitalPw, hospital.getHospitalPw())) {
             return hospital;
         }
         return null;
@@ -83,16 +78,21 @@ public class HospitalService {
     }
 
     @Transactional
-    public void updateHospital(Hospital updatedHospital) {
-        String hospitalId = getCurrentHospitalId();
+    public void updateHospital(String hospitalId, Hospital updatedHospital, String newPassword) {
         Hospital hospital = hospitalRepository.findByHospitalId(hospitalId);
-        
-        hospital.setHospitalPw(passwordEncoder.encode(updatedHospital.getHospitalPw()));
-        hospital.setHospitalPhone(updatedHospital.getHospitalPhone());
-        hospital.setHospitalEmail(updatedHospital.getHospitalEmail());
-        hospital.setHospitalAddress(updatedHospital.getHospitalAddress());
+        if (hospital != null) {
+            // 새 비밀번호가 제공된 경우에만 비밀번호 업데이트
+            if (newPassword != null && !newPassword.isEmpty()) {
+                hospital.setHospitalPw(passwordEncoder.encode(newPassword));
+            }
+            
+            hospital.setHospitalPhone(updatedHospital.getHospitalPhone());
+            hospital.setHospitalEmail(updatedHospital.getHospitalEmail());
+            hospital.setHospitalAddress(updatedHospital.getHospitalAddress());
+            // 필요한 다른 필드들도 업데이트
 
-        hospitalRepository.save(hospital);
+            hospitalRepository.save(hospital);
+        }
     }
 
     public void deleteHospital(String hospitalId) throws Exception {
