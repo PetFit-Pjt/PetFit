@@ -26,6 +26,10 @@
           <label for="confirm-password">비밀번호 확인</label>
           <input type="password" id="confirm-password" name="confirm-password" required>
         </div>
+    		<div class="form-group">		
+            <label for="new-password">새 비밀번호</label>
+            <input type="password" name="new-password" placeholder="새 비밀번호 (변경하려면 입력)">
+        </div>
         <div class="form-group">
           <label for="businessRegistration">사업자 등록번호</label>
           <input type="text" id="businessRegistration" name="businessRegistration" th:value="${Hospital.businessRegistration}" required>

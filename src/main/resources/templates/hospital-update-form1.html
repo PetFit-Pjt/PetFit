@@ -21,6 +21,9 @@
             <label for="password">비밀번호</label>
             <input type="password" id="password" name="password" value="********" disabled>
             
+            <label for="new-password">새 비밀번호</label>
+            <input type="password" name="new-password" placeholder="새 비밀번호 (변경하려면 입력)">
+            
             <label for="name">상호명</label>
             <input type="text" id="name" name="name" value="병원 A" disabled>
             
@@ -54,6 +57,9 @@
             
             <label for="password">비밀번호</label>
             <input type="password" id="password" name="password" value="********">
+                        
+            <label for="new-password">새 비밀번호</label>
+            <input type="password" name="new-password" placeholder="새 비밀번호 (변경하려면 입력)">
             
             <label for="name">상호명</label>
             <input type="text" id="name" name="name" value="병원 A">
@@ -86,7 +92,16 @@
     </section>
   </main>
   
-  <script src="/js/hospital-update-form1.js"></script>
-  <script th:src="@{/js/hospital-update-form1.js}"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+        let currentHospitalId = /*[[${#authentication.name}]]*/ 'defaultHospitalId';
+        document.querySelectorAll('a.modify-hospital-link').forEach(link => {
+            link.href = `/modifyhospital/${currentHospitalId}`;
+        });
+    });
+    /*]]>*/
+  </script>
+<!--   <script src="/js/hospital-update-form1.js"></script> -->
 </body>
 </html>

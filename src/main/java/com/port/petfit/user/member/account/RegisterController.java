@@ -294,7 +294,7 @@ public class RegisterController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String hospitalId = auth.getName();
 		Hospital hospital = hospitalRepository.findByHospitalId(hospitalId);
-		model.addAttribute("Hospital", hospital);
+		model.addAttribute("hospital", hospital);
 		return "hospitalMyPage";
 	}
 	
@@ -306,33 +306,34 @@ public class RegisterController {
 	    return "modifyhospital"; // 수정 페이지 뷰 반환
 	}
 	
-    @PostMapping("/modifyhospital/{hospitalId}")
-    public String modifyHospitalAndThumbnail(@PathVariable String hospitalId,
-                                             @RequestParam("file") MultipartFile file,
-                                             @ModelAttribute("Hospital") Hospital updatedHospital,
-                                             @RequestParam("confirm-password") String confirmPassword,
-                                             RedirectAttributes redirectAttributes) {
-        try {
-            // 비밀번호 확인
-            Hospital hospital = hospitalService.authenticate(hospitalId, confirmPassword);
-            if (hospital == null) {
-                redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
-                return "redirect:/modifyhospital/" + hospitalId;
-            }
+	@PostMapping("/modifyhospital/{hospitalId}")
+	public String modifyHospitalAndThumbnail(@PathVariable String hospitalId,
+	                                         @RequestParam("file") MultipartFile file,
+	                                         @ModelAttribute("Hospital") Hospital updatedHospital,
+	                                         @RequestParam("confirm-password") String confirmPassword,
+	                                         @RequestParam(value = "new-password", required = false) String newPassword,
+	                                         RedirectAttributes redirectAttributes) {
+	    try {
+	        // 현재 비밀번호 확인
+	        Hospital hospital = hospitalService.authenticate(hospitalId, confirmPassword);
+	        if (hospital == null) {
+	            redirectAttributes.addFlashAttribute("errorMessage", "현재 비밀번호가 일치하지 않습니다.");
+	            return "redirect:/modifyhospital/" + hospitalId;
+	        }
 
-            // 이미지 파일 저장 및 업로드
-            hospitalService.saveHospitalThumbnail(hospital, file);
+	        // 이미지 파일 저장 및 업로드
+	        hospitalService.saveHospitalThumbnail(hospital, file);
 
-            // 병원 정보 업데이트
-            hospitalService.updateHospital(updatedHospital);
+	        // 병원 정보 업데이트
+	        hospitalService.updateHospital(hospitalId, updatedHospital, newPassword);
 
-            redirectAttributes.addFlashAttribute("successMessage", "병원 정보가 업데이트되었습니다.");
-            return "redirect:/index_hospital"; // 업데이트 후 병원 홈으로 리다이렉트
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "이미지 업로드 중 오류가 발생했습니다.");
-            return "redirect:/modifyhospital/" + hospitalId;
-        }
-    }
+	        redirectAttributes.addFlashAttribute("successMessage", "병원 정보가 업데이트되었습니다.");
+	        return "redirect:/index_hospital";
+	    } catch (IOException e) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "이미지 업로드 중 오류가 발생했습니다.");
+	        return "redirect:/modifyhospital/" + hospitalId;
+	    }
+	}
     
 	@PostMapping("/hospital_list/{hospitalId}")
 	public String approveHospital(@PathVariable String hospitalId, RedirectAttributes redirectAttributes) {
