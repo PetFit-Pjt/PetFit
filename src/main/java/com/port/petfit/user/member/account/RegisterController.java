@@ -129,7 +129,6 @@ public class RegisterController {
 	
 	@GetMapping("/success")
 	public String success() {
-		// success 페이지를 반환
 		return "success";
 	}
 
@@ -148,11 +147,6 @@ public class RegisterController {
 		return "login-failure";
 	}
 
-//	@GetMapping("/index_hospital")
-//	public String hospitalHomePage() {
-//		return "index_hospital";
-//	}
-
 	@GetMapping("/index_admin")
 	public String adminHomePage() {
 		return "index_admin";
@@ -161,11 +155,6 @@ public class RegisterController {
 	@GetMapping("/reservation_list")
 	public String register_listPage() {
 		return "reservation_list";
-	}
-
-	@GetMapping("/search")
-	public String search_detailsPage() {
-		return "search_details";
 	}
 
 	@GetMapping("/userMyPage")

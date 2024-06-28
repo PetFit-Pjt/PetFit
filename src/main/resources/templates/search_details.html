@@ -45,107 +45,30 @@
 	</section>
 
     <section class="hospital-list">
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>서울대 병원</h3>
-          <p>운영 시간: 월-금 9:00 - 18:00</p>
-          <p>연락처: 02-1234-5678</p>
-          <p>주소: 서울시 강남구 역삼동 123-45</p>
-          <p>의사: 김철수, 박민지</p>
-          <a th:href="@{/appointment}" class="reservation-btn">예약하기</a>
-        </div>
+      <h1>검색 결과</h1>
+      <ul>
+        <li th:each="hospital : ${hospitals}" class="hospital-card">
+          <div class="image-container">
+            <img th:src="@{${hospital.hospitalThumbnailUrl}}" alt="병원 이미지" class="hospital-thumbnail">
+          </div>
+          <div class="hospital-info">
+            <h2 th:text="${hospital.hospitalName}"></h2>
+            <p th:text="${hospital.hospitalAddress}"></p>
+            <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
+            <p><strong>이메일:</strong> <span th:text="${hospital.hospitalEmail}"></span></p>
+            <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
+            <a th:href="@{/appointment}" style="width: 105px" class="reservation-btn">예약하기</a>
+          </div>
+        </li>
+      </ul>
+      
+       <div class="pagination">
+        <a th:href="@{/search(page=${hospitals.number - 1})}" th:if="${hospitals.hasPrevious()}">이전</a>
+        <span th:text="${hospitals.number + 1} + ' / ' + ${hospitals.totalPages}"></span>
+        <a th:href="@{/search(page=${hospitals.number + 1})}" th:if="${hospitals.hasNext()}">다음</a>
       </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital1.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital1.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>강남 동물병원</h3>
-          <p>운영 시간: 월-금 9:00 - 18:00 / 토 9:00 - 15:00</p>
-          <p>연락처: 02-1234-5678</p>
-          <p>주소: 서울시 강남구 역삼동 123-45</p>
-          <p>의사: 김철수, 박민지, 이영희</p>
-          <a th:href="@{/reservation.html}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital2.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital2.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>홍대 동물병원</h3>
-          <p>운영 시간: 월-토 10:00 - 20:00 / 일 12:00 - 18:00</p>
-          <p>연락처: 02-9876-5432</p>
-          <p>주소: 서울시 마포구 서교동 456-78</p>
-          <p>의사: 이지은, 홍길동</p>
-          <a th:href="@{/reservation.html}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital3.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital3.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>신촌 동물병원</h3>
-          <p>운영 시간: 월-금 9:00 - 21:00 / 토 9:00 - 18:00 / 일 휴무</p>
-          <p>연락처: 02-3456-7890</p>
-          <p>주소: 서울시 서대문구 창천동 12-34</p>
-          <p>의사: 박지영, 김태현, 이승우</p>
-          <a th:href="@{/reservation.html}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital4.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital4.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>경희대 동물병원</h3>
-          <p>운영 시간: 월-토 9:00 - 20:00 / 일 휴무</p>
-          <p>연락처: 02-2222-3333</p>
-          <p>주소: 경기도 용인시 기흥구 보정동 123-45</p>
-          <p>의사: 정지수, 김하늘</p>
-          <a th:href="@{/reservation}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital5.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital5.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>서울 애견 병원</h3>
-          <p>운영 시간: 매일 24시간</p>
-          <p>연락처: 02-1111-2222</p>
-          <p>주소: 서울특별시 강서구 화곡동 123-45</p>
-          <p>의사: 이현우, 김미정</p>
-          <a th:href="@{/reservation}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <div class="hospital-card">
-        <div class="hospital-image">
-<!--           <img th:src="@{/image/hospital.jpg}" alt="병원 이미지"> -->
-          <img src="/image/hospital.jpg" alt="병원 이미지">
-        </div>
-        <div class="hospital-info">
-          <h3>한양 동물병원</h3>
-          <p>운영 시간: 월-토 10:00 - 19:00 / 일 10:00 - 15:00</p>
-          <p>연락처: 02-9876-5432</p>
-          <p>주소: 서울시 성동구 행당동 456-78</p>
-          <p>의사: 박성훈, 최지은</p>
-          <p>서비스: 내과, 외과, 치과</p>
-          <a th:href="@{/reservation.html}" class="reservation-btn">예약하기</a>
-        </div>
-      </div>
-      <!-- Add more hospital card elements -->
     </section>
+    
   </main>
 	<script type="/js/search_details.js"></script>
   <div th:insert="~{footer.html}"></div>
