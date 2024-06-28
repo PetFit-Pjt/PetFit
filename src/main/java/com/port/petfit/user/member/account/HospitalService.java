@@ -2,10 +2,11 @@ package com.port.petfit.user.member.account;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -105,7 +106,15 @@ public class HospitalService {
         this.hospitalRepository = hospitalRepository;
     }
 
-    public List<Hospital> searchByHospitalNameOrAddress(String query) {
-        return hospitalRepository.findByHospitalNameContainingAndApprovedIsTrueOrHospitalAddressContainingAndApprovedIsTrue(query, query);
+    public Page<Hospital> searchByHospitalNameOrAddress(String query, Pageable pageable) {
+        return hospitalRepository.findByHospitalNameContainingAndApprovedIsTrueOrHospitalAddressContainingAndApprovedIsTrue(query, query, pageable);
+    }
+
+    public Page<Hospital> getAllHospitals(Pageable pageable) {
+        return hospitalRepository.findAll(pageable);
+    }
+
+    public Hospital getHospitalById(String hospitalId) {
+        return hospitalRepository.findByHospitalId(hospitalId);
     }
 }
