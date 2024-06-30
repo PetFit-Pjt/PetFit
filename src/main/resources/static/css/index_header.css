@@ -36,12 +36,15 @@ ul {
   list-style-type: none;
 }
 
-/* Header */
+/* 헤더와 네비게이션 */
 header {
   background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  color: #000;
   padding: 10px;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo img {
@@ -51,24 +54,32 @@ header {
 
 nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
-nav ul {
+.nav-links {
+  flex: 2;
+}
+
+.nav-links ul {
   display: flex;
-  gap: 70px;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 40px;
+  z-index: 100;
 }
 
-nav ul a:hover{
-  font-weight: bolder;
-  font-size: x-large;
-  z-index: -1; /* 다른 요소 위에 표시되도록 순서를 조정합니다. */
-}
 
 .user-actions {
   display: flex;
-  gap: 10px;
+  justify-content: flex-end; /* 로그인/회원가입 버튼을 오른쪽에 정렬 */
+  align-items: center;
+  gap: 20px;
 }
 
 .user-actions .btn {
@@ -80,63 +91,115 @@ nav ul a:hover{
   border: none;
 }
 
+.icon-container {
+  flex: 1; /* 아이콘 컨테이너를 오른쪽 끝으로 밀어냄 */
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .user-actions .btn:hover {
-	color: black;
-  background-color: rgb(85, 255, 198);
+  background-color: #55ffc6;
+  color: black;
 }
 
-.btn {
-    display: inline-block;
-    background-color: #ff6347;
-    color: #fff;
-    text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-weight: 500;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
+.nav-toggle,
+.user-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  margin-left: 10px; 
 }
 
-.btn:hover {
-    background-color: #e65c4f;
-}
-
-@media (min-width: 768px) {
-  .hero {
-    padding: 120px 80px;
+/* 로그인/회원가입 버튼 아이콘 숨기기 */
+@media (max-width: 768px) {
+  .user-actions .btn {
+    display: none;
   }
 
-  .logo img {
-    width: 130px;
-    height: auto;
+  .user-actions.show .btn {
+    display: block;
   }
-  .search-box {
+
+  .nav-toggle, .user-toggle {
+    display: block;
+    /* 작은 화면에서 토글 버튼 보이기 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    margin-left: auto;
+  }
+
+  .user-actions {
+    display: none; /* 초기에 숨김 */
     position: absolute;
-    top: 75%;
-    left: 80px;
-    transform: translateY(-50%);
-    width: 600px;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
+    z-index: 100;
+  }
+  
+  .user-actions.show {
+    display: flex; /* 토글 버튼 클릭 시 보이도록 변경 */
+    flex-direction: column;
+    right: 0;
   }
 
-  .quick-links {
-    flex-wrap: wrap;
-    justify-content: space-around; /* 퀵 링크를 좌우로 정렬합니다. */
-    gap: 20px; /* 퀵 링크 간격을 조절합니다. */
+  .icon-container {
+	  display: flex;
+	  justify-content: flex-end;
+	  align-items: center;
+	  margin-left: 400px;
   }
 
-  .quick-link {
-    width: calc(50% - 10px); /* 퀵 링크가 2개씩 보이도록 너비를 조절합니다. */
-    max-width: 150px; /* 최대 너비 설정 */
-    height: 150px;
+  nav .nav-links,
+  .user-actions {
+    display: none;
+    /* 초기에 네비게이션 메뉴 및 로그인/회원가입 버튼 숨김 */
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
   }
 
-  .quick-link i {
-    font-size: 2rem;
+  nav .nav-links.show,
+  .user-actions.show {
+    display: flex;
+    /* 토글 버튼 클릭 시 보이도록 변경 */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    gap: 10px;
   }
-
-  .quick-link span {
-    font-size: 16px;
-  }
+  
+  .nav-links ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  gap: 20px;
+  z-index: 100;
+}
+  
 }
 
 /* About */
