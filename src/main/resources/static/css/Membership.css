@@ -55,11 +55,6 @@ a {
   justify-content: center; /* 가운데 정렬 */
   gap: 20px; /* 요소들 사이의 간격 */
 }
-p {
-	padding: 10px;
-	margin-bottom: 20px;
-	font-size: 50px;
-}
 
 .info {
   width: 600px; /* 요약 정보의 너비 조정 */
@@ -88,9 +83,34 @@ p {
   height: auto;
 }
 
-/* Footer */
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 40px 80px;
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .hero img {
+    max-width: 100%;
+    margin: 20px 0;
+  }
+
+  .membership-info {
+    flex-direction: column;
+  }
+
+  .info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .membership-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
