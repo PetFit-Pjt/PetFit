@@ -91,19 +91,19 @@
         <button id="commentok">댓글 등록</button>
     </div>
 
-	<div th:if="${board?.idx != null}">
-	    <h4 style="padding: 13px 0 0 15px;">댓글 목록</h4>
-	    <table class="table">
-	        <colgroup>
-	            <col width="50px">
-	            <col width="50px">
-	            <col width="50px">
-	        </colgroup>
-	        <tbody id="commentTableBody">
-	            <!-- 댓글이 여기에 동적으로 추가됩니다. -->
-	        </tbody>
-	    </table>
-	</div>
+		<div th:if="${board?.idx != null}">
+		    <h4 style="padding: 13px 0 0 15px;">댓글 목록</h4>
+		    <table class="table comment-table">
+		        <colgroup>
+		            <col>
+		            <col>
+		            <col>
+		        </colgroup>
+		        <tbody id="commentTableBody">
+		            <!-- 댓글이 여기에 동적으로 추가됩니다. -->
+		        </tbody>
+		    </table>
+		</div>
 
 		<!-- 저장/수정/삭제 버튼 -->
 		<div class="pull-right">
