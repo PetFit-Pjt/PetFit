@@ -10,36 +10,48 @@
 </head>
 <body>
 
-	<!-- 헤더 포함 -->
-	<div th:insert="~{header_common :: header}"></div>
+  <!-- 헤더 포함 -->
+  <div th:insert="~{header_common :: header}"></div>
 
-<div class="container">
-  <a th:href="@{/mypage_user}"><div class="box">
-    <i class="fas fa-user"></i>
-    <h3>내 정보</h3>
-  </div></a>
-  <a th:href="@{/mypetInfo}"><div class="box">
-    <i class="fas fa-paw"></i>
-    <h3>반려동물 정보</h3>
-  </div></a>
-  <a th:href="@{/userReservation}"><div class="box">
-    <i class="fas fa-calendar-alt"></i>
-    <h3>예약 내역</h3>
-  </div></a>
-  <a th:href="@{/userMembership}"><div class="box">
-    <i class="fas fa-medal"></i>
-    <h3>멤버십</h3>
-  </div></a>
-  <a th:href="@{board/list}"><div class="box">
-    <i class="fas fa-edit"></i>
-    <h3>내가 쓴 글</h3>
-  </div></a>
-  <a th:href="@{/myPetRegister}"><div class="box">
-    <i class="fas fa-cog"></i>
-    <h3>반려동물 추가</h3>
-  </div></a>
-</div>
+  <div class="container">
+    <a th:href="@{/mypage_user}">
+      <div class="box">
+        <i class="fas fa-user"></i>
+        <h3>내 정보</h3>
+      </div>
+    </a>
+    <a th:href="@{/mypetInfo}">
+      <div class="box">
+        <i class="fas fa-paw"></i>
+        <h3>반려동물 정보</h3>
+      </div>
+    </a>
+    <a th:href="@{/userReservation}">
+      <div class="box">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>예약 내역</h3>
+      </div>
+    </a>
+    <a th:href="@{/userMembership}">
+      <div class="box">
+        <i class="fas fa-medal"></i>
+        <h3>멤버십</h3>
+      </div>
+    </a>
+    <a th:href="@{board/list}">
+      <div class="box">
+        <i class="fas fa-edit"></i>
+        <h3>내가 쓴 글</h3>
+      </div>
+    </a>
+    <a th:href="@{/myPetRegister}">
+      <div class="box">
+        <i class="fas fa-cog"></i>
+        <h3>반려동물 추가</h3>
+      </div>
+    </a>
+  </div>
 
-	<div th:insert="~{footer.html}"></div>
+  <div th:insert="~{footer.html}"></div>
 </body>
 </html>
