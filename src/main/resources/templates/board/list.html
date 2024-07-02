@@ -26,7 +26,7 @@
     <!-- 헤더 포함 -->
     <div th:insert="~{header_common :: header}"></div>
 
-    <div class="container" layout:fragment="content">
+    <div class="container" layout:fragment="content" style="padding-top: 20px; padding-bottom: 20px;">
 
         <div class="page-header">
             <h1>PETDOC</h1>
@@ -59,28 +59,26 @@
                             <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
                             <td th:text="${board.writer}"></td>
                         </tr>
-                        <tr>
-                            <td colspan="5">
-                                <div th:if="${board.comments.size() > 0}" class="comment-section">
-                                    <h5>댓글:</h5>
-                                    <ul>
-                                        <li th:each="comment : ${board.comments}">
-                                            <p><strong th:text="${comment.writer}"></strong>: <span th:text="${comment.content}"></span></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div th:if="${board.comments.size() == 0}" class="no-comment">
-                                    <p>댓글이 없습니다.</p>
-                                </div>
-                            </td>
-                        </tr>
+                        <th:block th:if="${board.comments.size() > 0}">
+                            <tr>
+                                <td colspan="5">
+                                    <div class="comment-section">
+                                        <h5>댓글:</h5>
+                                        <ul>
+                                            <li th:each="comment : ${board.comments}">
+                                                <p><strong th:text="${comment.writer}"></strong>: <span th:text="${comment.content}"></span></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
                     </th:block>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
 
     <!-- 이 위치에 Bootstrap/Jquery core JavaScript가 구성된다. -->
 
@@ -136,7 +134,7 @@
         }
         </script>
     </th:block>
-
+</div>
     <!-- 푸터 포함 -->
     <div th:insert="~{footer.html}"></div>
 </body>
