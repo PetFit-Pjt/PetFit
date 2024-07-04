@@ -126,7 +126,7 @@ nav {
 
 /* Hero Section */
 .hero {
-  background-image: url('/image/10.jpeg');
+  background-image: url('/image/bg_01.png');
   background-size: cover;
   background-position: bottom center;
   display: flex;
@@ -137,6 +137,7 @@ nav {
   position: relative;
   margin-bottom: 40px;
   padding: 120px 80px;
+  height: 500px;
 }
 
 .hero h1 {
