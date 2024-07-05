@@ -3,11 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/notice.css}">
   <link rel="stylesheet" href="/css/notice.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <title>PETFIT - Notice Board</title>
 </head>
 <body>
+
+	<header>
+	  <nav>
+		<div class="logo">
+		  <a th:href="@{/index}">
+			<img src="/image/펫핏.png" alt="PETFIT Logo">
+		  </a>
+		</div>
+	    <div class="nav-links">
+		    <ul>
+		      <li><a th:href="@{/index}"><i class="fas fa-home"></i> 홈</a></li>
+		      <li><a th:href="@{/reservation}"><i class="fas fa-comments"></i> 고객상담</a></li>
+		      <li><a th:href="@{/FAQ}"><i class="fas fa-question-circle"></i> FAQ</a></li>
+		      <li><a th:href="@{/customer}"><i class="fas fa-file-alt"></i> 문의하기</a></li>
+		    </ul>
+	    </div>
+	    <div class="user-actions">
+		  <!-- 로그인 했을 때 보여줄 내용 -->
+		  <form action="/logout" method="post">
+			<button type="submit" class="btn">로그아웃</button>
+		  </form>
+		  <a href="/userMyPage" class="btn">마이페이지</a>
+		</div>
+	    <div class="icon-container">
+	      <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+	      <button class="user-toggle"><i class="fas fa-user"></i></button>
+	    </div>
+	  </nav>
+	</header>
 
   <main>
     <section class="notice-board">
@@ -44,5 +74,6 @@
       </div>
     </section>
   </main>
+      <div th:insert="~{footer.html}"></div>
 </body>
 </html>

@@ -1,49 +1,4 @@
 /* customer_center.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.sidebar {
-  background-color: #007bff;
-  color: #fff;
-  width: 200px;
-  height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.logo {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.logo img {
-  max-width: 100px;
-}
-
-.nav-links {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  margin-bottom: 20px;
-}
-
-.nav-links li a {
-  color: #fff;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.nav-links li a i {
-  margin-right: 10px;
-}
 
 .main-content {
   flex-grow: 1;
