@@ -16,32 +16,9 @@ a {
   color: inherit;
 }
 
-/* Header */
-header {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style-type: none;
-}
-
-nav a {
-  color: white;
+main {
+	height: 1000px;
+  flex-grow: 1;
 }
 
 /* Notice Board */
