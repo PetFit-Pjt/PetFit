@@ -178,6 +178,11 @@ public class RegisterController {
 		return "reservation";
 	}
 	
+	@GetMapping("/searchDoctor")
+	public String searchDoctorPage() {
+		return "searchDoctor";
+	}
+	
 	@GetMapping("/member_management")
 	public String showMemberManagementPage(Model model) {
 	    List<User> users = userRepository.findAll(); // 모든 유저 정보 가져오기
@@ -337,6 +342,4 @@ public class RegisterController {
 		return "redirect:/hospital_list"; // 승인 후 병원 목록 페이지로 리다이렉트
 	}
 
-	
-	
 }

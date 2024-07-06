@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/image/favicon.png">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/searchDoctor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>의료진 검색</title>
+</head>
+<body th:attr="data-is-authenticated=${session.isLoggedIn}">
+  <!-- 헤더 포함 -->
+  <div th:insert="~{header_common :: header}"></div>
+  <main>
+
+    <section class="hero2">
+    </section>
+
+  </main>
+  <div th:insert="~{footer.html}"></div>
+  <script src="/js/index.js"></script>
+  <script src="/js/alert.js"></script>
+  <script>
+    function checkLogin(event) {
+      var isAuthenticated = document.body.getAttribute('data-is-authenticated');
+      if (isAuthenticated !== 'true') {
+        event.preventDefault();
+        alert('이 기능을 사용하려면 로그인이 필요합니다.');
+      }
+    }
+  </script>
+<script>
+  // 햄버거 메뉴 클릭 시 네비게이션 토글
+  document.querySelector('.nav-toggle').addEventListener('click', function () {
+    document.querySelector('.nav-links').classList.toggle('show');
+  });
+
+  // 유저 아이콘 클릭 시 유저 액션 토글
+  document.querySelector('.user-toggle').addEventListener('click', function () {
+    document.querySelector('.user-actions').classList.toggle('show');
+  });
+</script>
+</body>
+</html>
