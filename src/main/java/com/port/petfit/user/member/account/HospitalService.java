@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -116,5 +117,9 @@ public class HospitalService {
 
     public Hospital getHospitalById(String hospitalId) {
         return hospitalRepository.findByHospitalId(hospitalId);
+    }
+    
+    public Page<Hospital> searchByDoctorNames(String query, PageRequest pageRequest) {
+        return hospitalRepository.findByDoctorNamesContaining(query, pageRequest);
     }
 }
