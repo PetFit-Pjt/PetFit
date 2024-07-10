@@ -37,4 +37,18 @@ public class SearchController {
         model.addAttribute("hospitals", hospitals);
         return "search_details"; // 모든 병원 정보를 표시할 뷰 이름
     }
+
+    @GetMapping("/searchDoctor")
+    public String searchDoctor(@RequestParam(name = "query", required = false) String query,
+                               @RequestParam(name = "page", defaultValue = "0") int page,
+                               Model model) {
+        Page<Hospital> hospitals;
+        if (query != null && !query.isEmpty()) {
+            hospitals = hospitalService.searchByDoctorNames(query, PageRequest.of(page, 1));
+        } else {
+            hospitals = hospitalService.getAllHospitals(PageRequest.of(page, 1));
+        }
+        model.addAttribute("hospitals", hospitals);
+        return "searchDoctor"; // 검색 결과를 표시할 뷰 이름
+    }
 }
