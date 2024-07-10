@@ -2,6 +2,7 @@ package com.port.petfit.user.member.account;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,14 +97,9 @@ public class RegisterController {
 
 	@GetMapping("/register-hospital")
 	public String showRegisterHospitalPage(Model model) {
-		// hospital 객체를 초기화
-		Hospital hospital = new Hospital();
-
-		// hospital 객체를 모델에 추가
-		model.addAttribute("Hospital", hospital);
-
-		// "register-hospital" 템플릿을 반환하여 뷰를 렌더링
-		return "register-hospital";
+	    Hospital hospital = new Hospital();
+	    model.addAttribute("Hospital", hospital);
+	    return "register-hospital";
 	}
 
 	@PostMapping("/register-admin")
@@ -116,14 +112,13 @@ public class RegisterController {
 	public String registerUser(@ModelAttribute User user) {
 		// 비밀번호를 암호화
 		userService.registerUser(user);
-
 		return "login"; // 로그인 페이지로 리다이렉트
 	}
 	
 	@PostMapping("/register-hospital")
-	public String registerHospital(@ModelAttribute Hospital hospital) {
+	public String registerHospital(@ModelAttribute Hospital hospital, @RequestParam("doctorNames") String doctorNames) {
+	    hospital.setDoctorNames(doctorNames);
 		hospitalService.registerHospital(hospital);
-
 		return "login"; // 로그인 페이지로 리다이렉트
 	}
 	
