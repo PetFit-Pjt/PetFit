@@ -55,4 +55,54 @@ public class Reply {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Integer getReplyId() {
+		return replyId;
+	}
+
+	public void setReplyId(Integer replyId) {
+		this.replyId = replyId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public Petdoc getPetdoc() {
+		return petdoc;
+	}
+
+	public void setPetdoc(Petdoc petdoc) {
+		this.petdoc = petdoc;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
+	}
+	
+	
 }

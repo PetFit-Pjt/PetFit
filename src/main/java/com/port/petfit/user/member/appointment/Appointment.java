@@ -48,6 +48,64 @@ public class Appointment {
     public Appointment() {
     	
     }
+
+	public Integer getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+	public String getAppointmentDateTime() {
+		return appointmentDateTime;
+	}
+
+	public void setAppointmentDateTime(String appointmentDateTime) {
+		this.appointmentDateTime = appointmentDateTime;
+	}
+
+	public String getMedicalNotes() {
+		return medicalNotes;
+	}
+
+	public void setMedicalNotes(String medicalNotes) {
+		this.medicalNotes = medicalNotes;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+    
+    
     
     
     
