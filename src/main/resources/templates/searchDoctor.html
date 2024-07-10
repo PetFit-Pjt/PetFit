@@ -13,10 +13,38 @@
   <!-- 헤더 포함 -->
   <div th:insert="~{header_common :: header}"></div>
   <main>
-
-    <section class="hero2">
+    <section class="search-container">
+      <h1>의료진 검색</h1>
+      <form action="/searchDoctor" method="GET">
+          <div class="search-box">
+              <input type="text" name="query" placeholder="의료진을 검색해주세요..." />
+              <button type="submit" class="search-btn">검색</button>
+          </div>
+      </form>
     </section>
 
+    <section class="doctor-list">
+      <h1>검색 결과</h1>
+      <ul>
+        <li th:each="hospital : ${hospitals}" class="hospital-card">
+          <div class="image-container">
+            <img th:src="@{${hospital.hospitalThumbnailUrl}}" alt="병원 이미지" class="hospital-thumbnail">
+          </div>
+          <div class="hospital-info">
+            <h2 th:text="${hospital.hospitalName}"></h2>
+            <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
+            <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
+            <p><strong>의사:</strong> <span th:text="${hospital.doctorNames}"></span></p>
+          </div>
+        </li>
+      </ul>
+      
+      <div class="pagination">
+        <a th:href="@{/searchDoctor(page=${hospitals.number - 1})}" th:if="${hospitals.hasPrevious()}">이전</a>
+        <span th:text="${hospitals.number + 1} + ' / ' + ${hospitals.totalPages}"></span>
+        <a th:href="@{/searchDoctor(page=${hospitals.number + 1})}" th:if="${hospitals.hasNext()}">다음</a>
+      </div>
+    </section>
   </main>
   <div th:insert="~{footer.html}"></div>
   <script src="/js/index.js"></script>
@@ -30,16 +58,16 @@
       }
     }
   </script>
-<script>
-  // 햄버거 메뉴 클릭 시 네비게이션 토글
-  document.querySelector('.nav-toggle').addEventListener('click', function () {
-    document.querySelector('.nav-links').classList.toggle('show');
-  });
+  <script>
+    // 햄버거 메뉴 클릭 시 네비게이션 토글
+    document.querySelector('.nav-toggle').addEventListener('click', function () {
+      document.querySelector('.nav-links').classList.toggle('show');
+    });
 
-  // 유저 아이콘 클릭 시 유저 액션 토글
-  document.querySelector('.user-toggle').addEventListener('click', function () {
-    document.querySelector('.user-actions').classList.toggle('show');
-  });
-</script>
+    // 유저 아이콘 클릭 시 유저 액션 토글
+    document.querySelector('.user-toggle').addEventListener('click', function () {
+      document.querySelector('.user-actions').classList.toggle('show');
+    });
+  </script>
 </body>
 </html>
