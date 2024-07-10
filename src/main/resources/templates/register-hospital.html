@@ -33,13 +33,13 @@
           <input type="text" id="hospitalName" name="hospitalName" th:value="${Hospital.hospitalName}" required>
         </div>
         <div class="form-group">
-		    <label for="startTime">영업 시작 시간</label>
-		    <input type="time" id="startTime" name="startTime" th:value="${Hospital.startTime}" required>
-		</div>	
-		<div class="form-group">
-		    <label for="endTime">영업 종료 시간</label>
-		    <input type="time" id="endTime" name="endTime" th:value="${Hospital.endTime}" required>
-		</div>
+			    <label for="startTime">영업 시작 시간</label>
+			    <input type="time" id="startTime" name="startTime" th:value="${Hospital.startTime}" required>
+				</div>	
+				<div class="form-group">
+		   		<label for="endTime">영업 종료 시간</label>
+		    	<input type="time" id="endTime" name="endTime" th:value="${Hospital.endTime}" required>
+				</div>
         <div class="form-group">
           <label for="hospitalEmail">이메일</label>
           <input type="email" id="hospitalEmail" name="hospitalEmail" th:value="${Hospital.hospitalEmail}" required>
@@ -59,6 +59,10 @@
             </select>
             <input type="text" id="hospitalPhone" name="hospitalPhone" th:value="${Hospital.hospitalPhone}" required>
           </div>
+        </div>
+        <div class="form-group">
+          <label for="doctorNames">의사 이름 (쉼표로 구분)</label>
+          <textarea id="doctorNames" name="doctorNames" rows="3" th:text="${Hospital.doctorNames}"></textarea>
         </div>
         <div class="form-group">
           <button type="submit">회원가입</button>
