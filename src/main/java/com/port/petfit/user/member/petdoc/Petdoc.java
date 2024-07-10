@@ -48,4 +48,78 @@ public class Petdoc {
     public Petdoc() {
     	
     }
+
+
+
+	public Integer getPetdocId() {
+		return PetdocId;
+	}
+
+
+
+	public void setPetdocId(Integer petdocId) {
+		PetdocId = petdocId;
+	}
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+	public String getDetails() {
+		return details;
+	}
+
+
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+
+
+
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+
+
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
+	}
+    
+    
 }
