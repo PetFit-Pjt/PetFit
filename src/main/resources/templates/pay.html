@@ -69,6 +69,14 @@
 	</style>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let errorMessage = /*[[${errorMessage}]]*/ 'null';
+        if (errorMessage !== null && errorMessage !== 'null') {
+            alert(errorMessage);
+        }
+        /*]]>*/
+    </script>
 	<script th:inline="javascript">
 		const membershipPrices = {
 			1: 1000,
@@ -82,6 +90,9 @@
 		const hasMembership = [[${hasMembership}]];
 		const isActive = [[${isActive}]];
 
+		// 초기화 및 저장된 membership_id 가져오기
+		let membership_id = parseInt(localStorage.getItem('membership_id')) || 1;
+		
 		// 결제 요청 함수
 		function requestPay() {
 			var IMP = window.IMP;
@@ -106,10 +117,14 @@
 						headers: {
 							'Content-Type': 'application/x-www-form-urlencoded',
 						},
-						body: `imp_uid=${encodeURIComponent(rsp.imp_uid)}&paid_amount=${encodeURIComponent(amount)}&durationMonths=${encodeURIComponent(months)}`
+            body: `imp_uid=${encodeURIComponent(rsp.imp_uid)}&paid_amount=${encodeURIComponent(amount)}&durationMonths=${encodeURIComponent(months)}&membership_id=${encodeURIComponent(membership_id)}`
 					})
 						.then(response => {
 							if (response.ok) {
+                // membership_id 증가시키고 저장
+                membership_id += 1;
+                localStorage.setItem('membership_id', membership_id);
+			                    
 								return response.text();
 							} else {
 								throw new Error('HTTP status ' + response.status);
@@ -150,7 +165,6 @@
 			}
 		}
 	</script>
-
 </head>
 
 <body class="bg-light">
