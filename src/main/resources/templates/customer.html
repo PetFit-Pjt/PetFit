@@ -5,25 +5,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETFIT_고객센터</title>
-  <link rel="stylesheet" th:href="@{/css/customer.css}">
   <link rel="stylesheet" href="/css/customer.css">
+  <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <div class="sidebar">
-    <div class="logo">
-      <a th:href="@{/index}"><img src="image/펫핏.png" alt="PetDoc"></a>
-    </div>
-    <ul class="nav-links">
-      <li><a th:href="@{/index}"><i class="fas fa-home"></i> 홈</a></li>
-      <li><a th:href="@{/reservation}"><i class="fas fa-comments"></i> 고객상담</a></li>
-      <li><a th:href="@{/FAQ}"><i class="fas fa-question-circle"></i> FAQ</a></li>
-      <li><a th:href="@{/customer}"><i class="fas fa-file-alt"></i> 문의하기</a></li>
-    </ul>
-  </div>
 
+	<header>
+	  <nav>
+		<div class="logo">
+		  <a th:href="@{/index}">
+			<img src="/image/펫핏.png" alt="PETFIT Logo">
+		  </a>
+		</div>
+	    <div class="nav-links">
+		    <ul>
+		      <li><a th:href="@{/index}"><i class="fas fa-home"></i> 홈</a></li>
+		      <li><a th:href="@{/reservation}"><i class="fas fa-comments"></i> 고객상담</a></li>
+		      <li><a th:href="@{/FAQ}"><i class="fas fa-question-circle"></i> FAQ</a></li>
+		      <li><a th:href="@{/customer}"><i class="fas fa-file-alt"></i> 문의하기</a></li>
+		    </ul>
+	    </div>
+	    <div class="user-actions">
+		  <!-- 로그인 했을 때 보여줄 내용 -->
+		  <form action="/logout" method="post">
+			<button type="submit" class="btn">로그아웃</button>
+		  </form>
+		  <a href="/userMyPage" class="btn">마이페이지</a>
+		</div>
+	    <div class="icon-container">
+	      <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+	      <button class="user-toggle"><i class="fas fa-user"></i></button>
+	    </div>
+	  </nav>
+	</header>
   <div class="main-content">
-    <header>
       <div class="header-info">
         <h1>고객센터</h1>
         <div class="info-item">
@@ -43,7 +59,6 @@
           <span>평일 09:00 - 18:00 (주말 및 공휴일 휴무)</span>
         </div>
       </div>
-    </header>
 
     <main>
       <section>
@@ -77,5 +92,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
   <script th:src="@{/js/customer.js}"></script>
   <script src="/js/customer.js"></script>
+      <div th:insert="~{footer.html}"></div>
 </body>
 </html>

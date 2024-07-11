@@ -54,11 +54,8 @@ body {
 	display: flex;
 }
 
-.btn btn-info, .btn btn-danger {
-	display: inline-block;	
-}
 .btn {
-	display: flex;
+	display: inline-block;
 	margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
@@ -67,11 +64,9 @@ body {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease-in-out;
-    background-color: #4CAF50; /* 초록색 배경 */
-    color: #fff; /* 흰색 텍스트 */
 }
 
-.btn-success  {
+.btn-success {
 	width: 72px;
     background-color: #4CAF50; /* 초록색 배경 */
     color: #fff; /* 흰색 텍스트 */
@@ -81,57 +76,124 @@ body {
     background-color: #45a049; /* 마우스 호버 시 어두운 초록색 */
 }
 
+.btn-info {
+    background-color: #17a2b8; /* 파란색 배경 */
+    color: #fff; /* 흰색 텍스트 */
+}
+
+.btn-info:hover {
+    background-color: #138496; /* 마우스 호버 시 어두운 파란색 */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* 빨간색 배경 */
+    color: #fff; /* 흰색 텍스트 */
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* 마우스 호버 시 어두운 빨간색 */
+}
+
 .buttons {
 	display: flex;
 }
 
 .table {
-	align-items: center;
-	justify-content: center;
-	display: flex;
+	width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
 }
 
-
-.form-control {
-	border: 1px solid #dadada;
-    border-radius: 5px;
-    background-color: #fff;
+.table th, .table td {
     padding: 10px;
-    margin: 10px;
-    width: 800px;
+    border: 1px solid #ddd;
 }
 
-/* 댓글 내용과 작성자 컨테이너 스타일 */
+.table th {
+    background-color: #f2f2f2;
+}
+
+/* 댓글 입력란 스타일 */
 #comment_content {
     border: 1px solid #dadada;
     border-radius: 5px;
     background-color: #fff;
     padding: 10px;
-    width: 700px;
+    width: calc(100% - 160px);
     height: 40px;
-    margin-left: -135px;
-    margin-right: 50px;
-
+    margin-bottom: 10px;
     float: left;
 }
 
-#comment_writer {
+#commentok {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #4CAF50; /* 초록색 배경 */
+    color: #fff; /* 흰색 텍스트 */
     border: none;
     border-radius: 5px;
-    background-color: #fff;
-    padding: 10px;
-    width: 120px;
-    height: 40px;
-	
-
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
+#commentok:hover {
+    background-color: #45a049; /* 마우스 호버 시 어두운 초록색 */
+}
 
+/* 댓글 목록 스타일 */
+.comment-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 
+.comment-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
+/* 댓글 테이블 열 너비 조정 */
+#commentTableBody td:nth-child(1) {
+    width: 100%;
+    margin-bottom: 0;
+}
 
+#commentTableBody td:nth-child(2) {
+    width: 15%;
+}
 
+#commentTableBody td:nth-child(3) {
+    width: 15%;
+    text-align: center;
+}
 
+/* 수정/삭제 버튼 스타일 */
+.update-comment, .delete-comment {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-left: 5px;
+}
 
+.update-comment {
+    background-color: #17a2b8; /* 파란색 배경 */
+    color: #fff; /* 흰색 텍스트 */
+}
 
+.update-comment:hover {
+    background-color: #138496; /* 마우스 호버 시 어두운 파란색 */
+}
 
+.delete-comment {
+    background-color: #dc3545; /* 빨간색 배경 */
+    color: #fff; /* 흰색 텍스트 */
+}
+
+.delete-comment:hover {
+    background-color: #c82333; /* 마우스 호버 시 어두운 빨간색 */
+}
