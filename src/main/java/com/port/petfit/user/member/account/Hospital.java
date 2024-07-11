@@ -72,6 +72,127 @@ public class Hospital {
     @CreationTimestamp
     private Date a_registerDate;
 
+	public String getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(String hospitalId) {
+		this.hospitalId = hospitalId;
+	}
+
+	public String getHospitalPw() {
+		return hospitalPw;
+	}
+
+	public void setHospitalPw(String hospitalPw) {
+		this.hospitalPw = hospitalPw;
+	}
+
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getHospitalPhone() {
+		return hospitalPhone;
+	}
+
+	public void setHospitalPhone(String hospitalPhone) {
+		this.hospitalPhone = hospitalPhone;
+	}
+
+	public String getHospitalAddress() {
+		return hospitalAddress;
+	}
+
+	public void setHospitalAddress(String hospitalAddress) {
+		this.hospitalAddress = hospitalAddress;
+	}
+
+	public String getHospitalEmail() {
+		return hospitalEmail;
+	}
+
+	public void setHospitalEmail(String hospitalEmail) {
+		this.hospitalEmail = hospitalEmail;
+	}
+
+	public String getBusinessRegistration() {
+		return businessRegistration;
+	}
+
+	public void setBusinessRegistration(String businessRegistration) {
+		this.businessRegistration = businessRegistration;
+	}
+
+	public String getHospitalThumbnail() {
+		return hospitalThumbnail;
+	}
+
+	public void setHospitalThumbnail(String hospitalThumbnail) {
+		this.hospitalThumbnail = hospitalThumbnail;
+	}
+
+	public String getHospitalThumbnailUrl() {
+		return hospitalThumbnailUrl;
+	}
+
+	public void setHospitalThumbnailUrl(String hospitalThumbnailUrl) {
+		this.hospitalThumbnailUrl = hospitalThumbnailUrl;
+	}
+
+	public MultipartFile getHospitalThumbnailFile() {
+		return hospitalThumbnailFile;
+	}
+
+	public void setHospitalThumbnailFile(MultipartFile hospitalThumbnailFile) {
+		this.hospitalThumbnailFile = hospitalThumbnailFile;
+	}
+
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public Date getA_registerDate() {
+		return a_registerDate;
+	}
+
+	public void setA_registerDate(Date a_registerDate) {
+		this.a_registerDate = a_registerDate;
+	}
+    
+    
     @Column(nullable = false)
     private String doctorNames; // 의사 목록
 }

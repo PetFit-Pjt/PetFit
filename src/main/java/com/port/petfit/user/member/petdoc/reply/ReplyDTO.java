@@ -15,4 +15,22 @@ public class ReplyDTO {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getParentPostId() {
+		return parentPostId;
+	}
+
+	public void setParentPostId(Integer parentPostId) {
+		this.parentPostId = parentPostId;
+	}
+    
+    
 }

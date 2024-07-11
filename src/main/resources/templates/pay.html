@@ -1,241 +1,217 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
-    <title>Checkout example · Bootstrap v5.2</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
-  	<link rel="stylesheet" href="/css/index.css">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.104.2">
+	<title>Checkout example · Bootstrap v5.2</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
+	<link rel="stylesheet" href="/css/index.css">
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+		.b-example-divider {
+			height: 3rem;
+			background-color: rgba(0, 0, 0, .1);
+			border: solid rgba(0, 0, 0, .15);
+			border-width: 1px 0;
+			box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+		}
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+		.b-example-vr {
+			flex-shrink: 0;
+			width: 1.5rem;
+			height: 100vh;
+		}
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+		.bi {
+			vertical-align: -.125em;
+			fill: currentColor;
+		}
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+		.nav-scroller {
+			position: relative;
+			z-index: 2;
+			height: 2.75rem;
+			overflow-y: hidden;
+		}
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
-    <script>
-    const isHTTPS = window.location.protocol === 'https:';
-    console.log(`현재 프로토콜은 ${isHTTPS ? 'HTTPS' : 'HTTP'}입니다.`);
-      // 멤버십 가격과 기간 설정
-      const pricePerMonth = 1000;
-      let currentMonths = 1;
+		.nav-scroller .nav {
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+	</style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	<script th:inline="javascript">
+		const membershipPrices = {
+			1: 1000,
+			6: 5000,
+			12: 9000
+		};
 
-      // 멤버십 기간 조절 함수
-      function adjustMembership(months) {
-        currentMonths += months;
-        // 최소 기간은 1개월
-        if (currentMonths < 1) {
-          currentMonths = 1;
-        } else if (currentMonths > 12) {
-          currentMonths = 12;
-        }
+		const userName = [[${userName}]];
+		const userEmail = [[${userEmail}]];
 
-        // 장바구니와 합계를 업데이트
-        document.getElementById("cartCount").textContent = currentMonths;
-        document.getElementById("membershipPrice").textContent = `\\${currentMonths * pricePerMonth}`;
-        document.getElementById("totalPrice").textContent = `\\${currentMonths * pricePerMonth}`;
-        document.getElementById("monthCount").textContent = `${currentMonths}개월`;
-      }
+		const hasMembership = [[${hasMembership}]];
+		const isActive = [[${isActive}]];
 
-     
+		// 결제 요청 함수
+		function requestPay() {
+			var IMP = window.IMP;
+			IMP.init("imp44171652");
 
-    
-    
-    
+			const selectedOption = document.querySelector('input[name="membershipOption"]:checked');
+			const months = selectedOption ? parseInt(selectedOption.value) : 1;
+			const amount = membershipPrices[months];
 
-      // 결제 요청 함수
-	  function requestPay() {
-	      var IMP = window.IMP;
-	      IMP.init("imp44171652");
-	  
-	      const amount = currentMonths * pricePerMonth;
-	      IMP.request_pay({
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: 'merchant_' + new Date().getTime(),
-	          name: "멤버십",
-	          amount: amount,
-	          buyer_email: document.getElementById('email').value,
-	          buyer_name: document.getElementById('firstName').value + document.getElementById('lastName').value,
-	      }, function(rsp) {
-	          if (rsp.success) {
-	              fetch('/verify-payment', {
-	                  method: 'POST',
-	                  headers: {
-	                      'Content-Type': 'application/x-www-form-urlencoded', // 변경된 컨텐트 타입
-	                  },
-	                  body: `imp_uid=${encodeURIComponent(rsp.imp_uid)}&paid_amount=${encodeURIComponent(amount)}&durationMonths=${encodeURIComponent(currentMonths)}`
-	              })
-	              .then(response => {
-	                  if (response.ok) {
-	                      return response.text(); // 서버로부터 텍스트 응답을 받음
-	                  } else {
-	                      throw new Error('HTTP status ' + response.status);
-	                  }
-	              })
-	              .then(data => {
-	                  alert('성공적으로 결제가 완료됐습니다.'); // 성공 시 받은 텍스트 메시지를 사용자에게 보여줌
-	              })
-	              .catch(error => {
-	                  console.error('Error:', error);
-	                  alert("결제 검증 요청 실패: " + error.message);
-	              });
-	          } else {
-	              alert("결제 실패: " + rsp.error);
-	          }
-	      });
-	  }
-      // 폼 제출 이벤트 처리
-      function handleFormSubmit(event) {
-        event.preventDefault();
-        requestPay();
-      }
+			IMP.request_pay({
+				pg: "html5_inicis",
+				pay_method: "card",
+				merchant_uid: 'merchant_' + new Date().getTime(),
+				name: `멤버십 ${months}개월`,
+				amount: amount,
+				buyer_email: userEmail,  // 구매자 이메일
+				buyer_name: userName,  // 구매자 이름
+			}, function (rsp) {
+				if (rsp.success) {
+					fetch('/verify-payment', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+						},
+						body: `imp_uid=${encodeURIComponent(rsp.imp_uid)}&paid_amount=${encodeURIComponent(amount)}&durationMonths=${encodeURIComponent(months)}`
+					})
+						.then(response => {
+							if (response.ok) {
+								return response.text();
+							} else {
+								throw new Error('HTTP status ' + response.status);
+							}
+						})
+						.then(data => {
+							alert('성공적으로 결제가 완료됐습니다.');
+						})
+						.catch(error => {
+							console.error('Error:', error);
+							alert("결제 검증 요청 실패: " + error.message);
+						});
+				} else {
+					alert("결제 실패: " + rsp.error_msg);
+				}
+			});
+		}
 
-     
-    </script>
- 
-  </head>
-  <body class="bg-light">
-    
-    	<!-- 헤더 포함 -->
+		// 폼 제출 이벤트 처리
+		function handleFormSubmit(event) {
+			event.preventDefault();
+			checkMembershipStatus();
+		}
+
+		// 멤버십 상태 확인 함수
+		function checkMembershipStatus() {
+			if (hasMembership) {
+				if (isActive) {
+					const extend = confirm("이미 멤버십을 가입하셨습니다. 기간 연장을 하시겠습니까?");
+					if (extend) {
+						requestPay();
+					}
+				} else {
+					requestPay();
+				}
+			} else {
+				requestPay();
+			}
+		}
+	</script>
+
+</head>
+
+<body class="bg-light">
 	<div th:insert="~{header_common :: header}"></div>
-    
-<div class="container">
-  <main>
-    <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="/image/펫핏_02.png" alt="" width="400" height="300">
-      <h2>멤버십 결제</h2>
-    </div>
+	<div class="container">
+		<main>
+			<div class="py-5 text-center">
+				<img class="d-block mx-auto mb-4" src="/image/펫핏_02.png" alt="" width="400" height="300">
+				<h2>멤버십 결제</h2>
+			</div>
+			<div class="row g-5">
 
-    <div class="row g-5">
-      <div class="col-md-5 col-lg-4 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">장바구니</span>
-          <span id="cartCount" class="badge bg-primary rounded-pill" style="background-color: #000; ">1</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">멤버십 <span id="monthCount">1개월</sapn></h6>
-            </div>
-            <span id="membershipPrice" class="text-muted">\1000</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>합계 (\)</span>
-            <strong id="totalPrice">\1000</strong>
-          </li>
-        </ul>
-         <div class="mb-3">
-      <button onclick="adjustMembership(-1)" class="btn btn-outline-secondary">-1개월</button>
-      <button onclick="adjustMembership(1)" class="btn btn-outline-secondary">+1개월</button>
-    </div>
+				<div class="col-md-7 col-lg-8">
 
-        
-      </div>
-      <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">구매자 정보</h4>
-        
-        <form id="paymentForm" onsubmit="handleFormSubmit(event)">
-		  <div class="row g-3">
-		    <div class="col-sm-6">
-		      <label for="firstName" class="form-label">성</label>
-		      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="" required>
-		      <div class="invalid-feedback">
-		        Valid first name is required.
-		      </div>
-		    </div>
-		
-		    <div class="col-sm-6">
-		      <label for="lastName" class="form-label">이름</label>
-		      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required>
-		      <div class="invalid-feedback">
-		        Valid last name is required.
-		      </div>
-		    </div>
-		  </div>
-		
-		  <div class="col-12">
-		    <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-		    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-		    <div class="invalid-feedback">
-		      Please enter a valid email address for shipping updates.
-		    </div>
-		  </div>
-	
-		  <hr class="my-4">
-		  
-		  <button onclick="requestPay()" class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: #0d6efd; border-radius: 5px;}">결제하기</button>
-		</form>
-      </div>
-    </div>
-  </main>
+					<form id="paymentForm" onsubmit="handleFormSubmit(event)">
 
+						<hr class="my-4">
+						<div class="row g-3">
+							<div class="col-12">
+								<label class="form-label">멤버십 옵션</label>
+								<div class="form-check">
+									<input id="membership1" name="membershipOption" type="radio"
+										class="form-check-input" value="1" checked>
+									<label class="form-check-label" for="membership1">
+										1개월 - \1000
+									</label>
+								</div>
+								<div class="form-check">
+									<input id="membership6" name="membershipOption" type="radio"
+										class="form-check-input" value="6">
+									<label class="form-check-label" for="membership6">
+										6개월 - \5000
+									</label>
+								</div>
+								<div class="form-check">
+									<input id="membership12" name="membershipOption" type="radio"
+										class="form-check-input" value="12">
+									<label class="form-check-label" for="membership12">
+										12개월 - \9000
+									</label>
+								</div>
+							</div>
+						</div>
+						<hr class="my-4">
+						<button class="w-100 btn btn-primary btn-lg" type="submit"
+							style="background-color: #0d6efd; border-radius: 5px;">결제하기</button>
+					</form>
+				</div>
+			</div>
+		</main>
+	</div>
+	<script>
+		// 햄버거 메뉴 클릭 시 네비게이션 토글
+		document.querySelector('.nav-toggle').addEventListener('click', function () {
+			document.querySelector('.nav-links').classList.toggle('show');
+		});
+		// 유저 아이콘 클릭 시 유저 액션 토글
+		document.querySelector('.user-toggle').addEventListener('click', function () {
+			document.querySelector('.user-actions').classList.toggle('show');
+		});
+	</script>
+</body>
 
-		</div>
-		<script>
-		  // 햄버거 메뉴 클릭 시 네비게이션 토글
-		  document.querySelector('.nav-toggle').addEventListener('click', function () {
-		    document.querySelector('.nav-links').classList.toggle('show');
-		  });
-		
-		  // 유저 아이콘 클릭 시 유저 액션 토글
-		  document.querySelector('.user-toggle').addEventListener('click', function () {
-		    document.querySelector('.user-actions').classList.toggle('show');
-		  });
-		</script>
-  </body>
 </html>

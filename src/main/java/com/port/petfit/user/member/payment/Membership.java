@@ -66,15 +66,14 @@ public class Membership {
 	}
 
 	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-		calculateEndDate(); // 종료 날짜 계산
-	}
+        this.startDate = startDate;
+    }
 
 	public int getDurationMonths() {
 		return durationMonths;
 	}
 
-	void setDurationMonths(int durationMonths) {
+	public void setDurationMonths(int durationMonths) {
 		this.durationMonths = durationMonths;
 		calculateEndDate(); // 종료 날짜 재계산
 	}
@@ -82,14 +81,46 @@ public class Membership {
 	public Date getEndDate() {
 		return endDate;
 	}
+	
+	public void extendMembership(int additionalMonths) {
+        if (isMembershipActive()) {
+            // 현재 멤버십이 유효한 경우, endDate를 기준으로 연장
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(endDate);
+            cal.add(Calendar.MONTH, additionalMonths);
+            this.endDate = cal.getTime();
+        } else {
+            // 현재 멤버십이 만료된 경우, 오늘 날짜를 기준으로 연장
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            cal.add(Calendar.MONTH, additionalMonths);
+            this.endDate = cal.getTime();
+        }
+        this.durationMonths += additionalMonths; // 전체 기간 추가
+        updateMembershipStatus(); // 멤버십 상태 업데이트
+    }
 
-	// 종료 날짜를 계산하는 내부 메소드
-	private void calculateEndDate() {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(startDate);
-		cal.add(Calendar.MONTH, durationMonths);
-		this.endDate = cal.getTime();
-	}
+    // 멤버십이 유효한지 판단하는 메서드
+    public boolean isMembershipActive() {
+        return endDate != null && endDate.after(new Date());
+    }
+
+    // 종료 날짜를 계산하는 내부 메소드
+    void calculateEndDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate); // 새로 설정된 startDate 사용
+        cal.add(Calendar.MONTH, durationMonths);
+        this.endDate = cal.getTime();
+    }
+
+    // 멤버십 상태를 업데이트하는 메서드
+    public void updateMembershipStatus() {
+        if (isMembershipActive()) {
+            this.membershipstatus = "Active";
+        } else {
+            this.membershipstatus = "Expired";
+        }
+    }
 
 	public String getMembershipstatus() {
 		return membershipstatus;

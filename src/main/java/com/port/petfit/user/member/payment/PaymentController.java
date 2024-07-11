@@ -2,7 +2,6 @@ package com.port.petfit.user.member.payment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,9 @@ public class PaymentController {
 
     @Autowired
     private MembershipRepository membershipRepository;
+    
+    @Autowired
+    private MembershipService membershipService;
 
     public PaymentController() {
         iamportClient = new IamportClient("4722527667201751", "Km59aVj3vC3XGecMkiPgOF16B61MzLUKPjOyDfEweIzEIOwkBJDtoPGeaWFzyTN2kZhA1XwEzROrsvIQ");
@@ -65,13 +67,8 @@ public class PaymentController {
                     newPayment.setPaymentMethod("Credit Card");
                     paymentRepository.save(newPayment);
 
-                    Membership membership = new Membership();
-                    membership.setUser(user);
-                    membership.setStartDate(new Date());
-                    membership.setDurationMonths(durationMonths);
-                    membership.setMembershipstatus("Active");
-                    membership.setPayment(newPayment); // Connect the payment to the membership
-                    membershipRepository.save(membership);
+                    // 멤버십을 처리하는 서비스 호출
+                    membershipService.processMembershipPayment(user, durationMonths, newPayment);
 
                     return new ResponseEntity<>(new VerificationResponse(true, "Payment verified successfully."), HttpStatus.OK);
                 }
