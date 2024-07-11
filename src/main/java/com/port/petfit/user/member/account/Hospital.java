@@ -11,6 +11,7 @@ import com.port.petfit.user.member.petdoc.reply.Reply;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -192,4 +193,6 @@ public class Hospital {
 	}
     
     
+    @Column(nullable = false)
+    private String doctorNames; // 의사 목록
 }

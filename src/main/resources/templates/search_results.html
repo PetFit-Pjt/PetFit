@@ -5,25 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETFIT - 병원 검색 결과</title>
   <link rel="stylesheet" href="/css/search_result.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">
-        <a href="/index"><img src="/image/펫핏.png" alt="PETFIT Logo"></a>
-      </div>
-      <ul>
-        <li><a href="/index">홈</a></li>
-        <li><a href="/search">병원 찾기</a></li>
-        <li><a href="/appointment">예약하기</a></li>
-        <li><a href="/customer.html">고객센터</a></li>
-      </ul>
-      <div class="user-actions">
-        <button class="btn">로그인</button>
-        <button class="btn">회원가입</button>
-      </div>
-    </nav>
-  </header>
+  
+  	<div th:insert="~{header_common :: header}"></div>
   <section class="search-container">
     <h1>병원 검색</h1>
     <form action="/searchHospital" method="GET">
@@ -66,5 +54,16 @@
       </div>
     </li>
   </ul>
+  <script>
+  // 햄버거 메뉴 클릭 시 네비게이션 토글
+  document.querySelector('.nav-toggle').addEventListener('click', function () {
+    document.querySelector('.nav-links').classList.toggle('show');
+  });
+
+  // 유저 아이콘 클릭 시 유저 액션 토글
+  document.querySelector('.user-toggle').addEventListener('click', function () {
+    document.querySelector('.user-actions').classList.toggle('show');
+  });
+</script>
 </body>
 </html>

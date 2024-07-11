@@ -2,6 +2,7 @@ package com.port.petfit.user.member.account;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,14 +97,9 @@ public class RegisterController {
 
 	@GetMapping("/register-hospital")
 	public String showRegisterHospitalPage(Model model) {
-		// hospital 객체를 초기화
-		Hospital hospital = new Hospital();
-
-		// hospital 객체를 모델에 추가
-		model.addAttribute("Hospital", hospital);
-
-		// "register-hospital" 템플릿을 반환하여 뷰를 렌더링
-		return "register-hospital";
+	    Hospital hospital = new Hospital();
+	    model.addAttribute("Hospital", hospital);
+	    return "register-hospital";
 	}
 
 	@PostMapping("/register-admin")
@@ -116,20 +112,18 @@ public class RegisterController {
 	public String registerUser(@ModelAttribute User user) {
 		// 비밀번호를 암호화
 		userService.registerUser(user);
-
 		return "login"; // 로그인 페이지로 리다이렉트
 	}
 	
 	@PostMapping("/register-hospital")
-	public String registerHospital(@ModelAttribute Hospital hospital) {
+	public String registerHospital(@ModelAttribute Hospital hospital, @RequestParam("doctorNames") String doctorNames) {
+	    hospital.setDoctorNames(doctorNames);
 		hospitalService.registerHospital(hospital);
-
 		return "login"; // 로그인 페이지로 리다이렉트
 	}
 	
 	@GetMapping("/success")
 	public String success() {
-		// success 페이지를 반환
 		return "success";
 	}
 
@@ -148,11 +142,6 @@ public class RegisterController {
 		return "login-failure";
 	}
 
-//	@GetMapping("/index_hospital")
-//	public String hospitalHomePage() {
-//		return "index_hospital";
-//	}
-
 	@GetMapping("/index_admin")
 	public String adminHomePage() {
 		return "index_admin";
@@ -161,11 +150,6 @@ public class RegisterController {
 	@GetMapping("/reservation_list")
 	public String register_listPage() {
 		return "reservation_list";
-	}
-
-	@GetMapping("/search")
-	public String search_detailsPage() {
-		return "search_details";
 	}
 
 	@GetMapping("/userMyPage")
@@ -348,6 +332,4 @@ public class RegisterController {
 		return "redirect:/hospital_list"; // 승인 후 병원 목록 페이지로 리다이렉트
 	}
 
-	
-	
 }
