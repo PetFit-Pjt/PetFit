@@ -1,6 +1,7 @@
 package com.port.petfit.user.member.appointment;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class AppointmentController {
 		User user = userRepository.findByUserId(userId); // 사용자 정보를 데이터베이스에서 가져옴
 
 		// 사용자의 멤버십 상태 확인
-		Membership membership = membershipRepository.findByUser(user);
-		boolean isMemberActive = membership != null && "Active".equals(membership.getMembershipstatus());
+		Optional<Membership> membership = membershipRepository.findByUser(user);
+		boolean isMemberActive = membership.isPresent() && "Active".equals(membership.get().getMembershipstatus());
 		LOGGER.info("User Membership Active: " + isMemberActive); // 로그 추가
 		model.addAttribute("isMemberActive", isMemberActive);
 

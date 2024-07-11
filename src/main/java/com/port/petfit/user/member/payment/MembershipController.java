@@ -1,6 +1,7 @@
 package com.port.petfit.user.member.payment;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,9 @@ public class MembershipController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+    private MembershipRepository membershipRepository;
 
 	private final MembershipService membershipService;
 
@@ -42,21 +46,30 @@ public class MembershipController {
 	}
 
 	@GetMapping("/pay")
-	public String showPaymentPage(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null
-				&& authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-			org.springframework.security.core.userdetails.User secUser = (org.springframework.security.core.userdetails.User) authentication
-					.getPrincipal();
-			String username = secUser.getUsername(); // 로그인한 사용자의 아이디 가져오기
+    public String showPaymentPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
+            org.springframework.security.core.userdetails.User secUser = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+            String username = secUser.getUsername(); // 로그인한 사용자의 아이디 가져오기
 
-			User user = userRepository.findByUserId(username); // 사용자 정보 조회
-			if (user != null) {
-				model.addAttribute("userName", user.getUserName());
-				model.addAttribute("userEmail", user.getUserEmail()); // 이메일 정보 추가
-			}
-		}
-		return "pay";
-	}
+            User user = userRepository.findByUserId(username); // 사용자 정보 조회
+            if (user != null) {
+                model.addAttribute("userName", user.getUserName());
+                model.addAttribute("userEmail", user.getUserEmail()); // 이메일 정보 추가
+
+                Optional<Membership> membershipOpt = membershipRepository.findByUser(user);
+                if (membershipOpt.isPresent()) {
+                    Membership membership = membershipOpt.get();
+                    boolean isActive = membership.isMembershipActive();
+                    model.addAttribute("hasMembership", true);
+                    model.addAttribute("isActive", isActive);
+                    model.addAttribute("endDate", membership.getEndDate());
+                } else {
+                    model.addAttribute("hasMembership", false);
+                }
+            }
+        }
+        return "pay";
+    }
 
 }
