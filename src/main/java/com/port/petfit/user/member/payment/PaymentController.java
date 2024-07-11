@@ -46,9 +46,10 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<VerificationResponse> verifyPayment(
-        @RequestParam("imp_uid") String impUid,
-        @RequestParam("paid_amount") double paidAmount,
-        @RequestParam("durationMonths") int durationMonths) {
+	    @RequestParam("imp_uid") String impUid,
+	    @RequestParam("paid_amount") double paidAmount,
+	    @RequestParam("durationMonths") int durationMonths,
+	    @RequestParam("membership_id") Long membershipId) {
         try {
             IamportResponse<Payment> paymentResponse = iamportClient.paymentByImpUid(impUid);
             if (paymentResponse.getResponse() != null) {
@@ -65,6 +66,7 @@ public class PaymentController {
                     newPayment.setAmount(apiPayment.getAmount().doubleValue());
                     newPayment.setImpUid(apiPayment.getImpUid());
                     newPayment.setPaymentMethod("Credit Card");
+                    newPayment.setMembershipId(membershipId);
                     paymentRepository.save(newPayment);
 
                     // 멤버십을 처리하는 서비스 호출

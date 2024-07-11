@@ -40,19 +40,26 @@ public class AppointmentController {
 	private MembershipRepository membershipRepository;
 	private static final Logger LOGGER = Logger.getLogger(PaymentController.class.getName());
 	
+	private boolean isUserMemberActive(User user) {
+        Optional<Membership> membership = membershipRepository.findByUser(user);
+        return membership.isPresent() && "Active".equals(membership.get().getMembershipstatus());
+    }
+	
 	@GetMapping("/appointment")
-	public String createAppointment(Model model) {
+	public String createAppointment(Model model, RedirectAttributes redirectAttributes) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName(); // 현재 로그인한 사용자의 ID를 가져옴
 		User user = userRepository.findByUserId(userId); // 사용자 정보를 데이터베이스에서 가져옴
 
-		// 사용자의 멤버십 상태 확인
-		Optional<Membership> membership = membershipRepository.findByUser(user);
-		boolean isMemberActive = membership.isPresent() && "Active".equals(membership.get().getMembershipstatus());
+		boolean isMemberActive = isUserMemberActive(user);
 		LOGGER.info("User Membership Active: " + isMemberActive); // 로그 추가
 		model.addAttribute("isMemberActive", isMemberActive);
 
-		// 예약 정보를 생성하고 사용자 정보를 설정
+		if (!isMemberActive) {
+			redirectAttributes.addFlashAttribute("errorMessage", "멤버십 가입이 필요한 기능입니다");
+			return "redirect:/pay"; // 멤버십이 활성화되지 않은 경우 리다이렉트
+		}
+
 		Appointment appointment = new Appointment();
 		appointment.setUser(user);
 		model.addAttribute("Appointment", appointment);
@@ -62,22 +69,23 @@ public class AppointmentController {
 	}
     
 	@PostMapping("/appointment")
-	public String createAppointment(@ModelAttribute("Appointment") Appointment appointment) {
+	public String createAppointment(@ModelAttribute("Appointment") Appointment appointment, RedirectAttributes redirectAttributes) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String userId = auth.getName(); // 현재 로그인한 사용자의 ID를 가져옴
 	    User user = userRepository.findByUserId(userId); // 사용자 정보를 데이터베이스에서 가져옴
 	    
-	    // Pet 객체에 사용자 정보 설정
-	    appointment.setUser(user);
+	    boolean isMemberActive = isUserMemberActive(user);
+	    if (!isMemberActive) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "멤버십이 활성화된 유저만 예약할 수 있습니다.");
+	        return "redirect:/appointment"; // 멤버십이 활성화되지 않은 경우 리다이렉트
+	    }
 	    
-	    // Pet 정보를 저장
+	    appointment.setUser(user);
 	    appointmentService.createAppointment(appointment);
 	    
-	    // 등록 페이지로 리다이렉트
 	    return "redirect:/appointment_success";
 	}
 
-    
 	@GetMapping("/appointment_success")
 	public String showAppointmentView(Model model) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -93,7 +101,7 @@ public class AppointmentController {
 	public String listAppointments(Model model) {
 		List<Appointment> appointments = appointmentRepository.findAll();
 		model.addAttribute("appointment_lists", appointments);
-		return "appointment_list"; // Thymeleaf 템플릿 이름
+		return "appointment_list";
 	}
 
 	@PostMapping("/appointment_list/{appointmentId}")
