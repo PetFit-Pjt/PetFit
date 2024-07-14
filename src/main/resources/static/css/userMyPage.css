@@ -11,12 +11,10 @@ body {
 
 .container {
   width: 80%;
-  heigt: 1000px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 100px;
-  padding: 0 auto;
-  margin: 0 auto; /* 수평 가운데 정렬 */
+  margin: 0 auto;
+ 	grid-gap: 0 30px;
   justify-content: center;
   align-items: center;
   justify-items: center;
