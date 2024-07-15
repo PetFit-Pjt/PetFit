@@ -1,7 +1,5 @@
-/* customer_center.css */
-
-.main-content {
-  flex-grow: 1;
+.content {
+  height: 1247px;
   padding: 30px;
 }
 
@@ -16,6 +14,7 @@ header {
   flex-direction: column;
   align-items: left;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .header-info h1 {
@@ -29,10 +28,11 @@ header {
   align-items: center;
   margin-bottom: 10px;
   font-size: 16px;
+  gap: 12px;
 }
 
 .info-item i {
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 section {
