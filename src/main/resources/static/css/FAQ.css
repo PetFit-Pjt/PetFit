@@ -9,6 +9,10 @@ header {
   text-align: center;
 }
 
+main {
+	height: 1278px;
+}
+
 .question-list {
   padding: 20px;
 }
@@ -26,7 +30,7 @@ header {
 
 #write-button {
   position: fixed;
-  bottom: 20px;
+  bottom: 1070px;
   right: 20px;
   padding: 10px 20px;
   background-color: #007bff;
