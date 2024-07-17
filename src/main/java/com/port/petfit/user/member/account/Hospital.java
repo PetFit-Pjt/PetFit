@@ -195,4 +195,9 @@ public class Hospital {
     
     @Column(nullable = false)
     private String doctorNames; // 의사 목록
+
+	public void setDoctorNames(String doctorNames2) {
+		// TODO Auto-generated method stub
+		
+	}
 }
