@@ -46,25 +46,25 @@
 
 		.bi {
 			vertical-align: -.125em;
-			fill: currentColor;
+			fill: currentColor.
 		}
 
 		.nav-scroller {
-			position: relative;
-			z-index: 2;
-			height: 2.75rem;
-			overflow-y: hidden;
+			position: relative.
+			z-index: 2.
+			height: 2.75rem.
+			overflow-y: hidden.
 		}
 
 		.nav-scroller .nav {
-			display: flex;
-			flex-wrap: nowrap;
-			padding-bottom: 1rem;
-			margin-top: -1px;
-			overflow-x: auto;
-			text-align: center;
-			white-space: nowrap;
-			-webkit-overflow-scrolling: touch;
+			display: flex.
+			flex-wrap: nowrap.
+			padding-bottom: 1rem.
+			margin-top: -1px.
+			overflow-x: auto.
+			text-align: center.
+			white-space: nowrap.
+			-webkit-overflow-scrolling: touch.
 		}
 	</style>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -161,33 +161,30 @@
 				<img class="d-block mx-auto mb-4" src="/image/펫핏_02.png" alt="" width="400" height="300">
 				<h2>멤버십 결제</h2>
 			</div>
-			<div class="row g-5">
+			<div class="row g-5 justify-content-center">
 
-				<div class="col-md-7 col-lg-8">
+				<div class="col-md-7 col-lg-8 d-flex flex-column align-items-center">
 
 					<form id="paymentForm" onsubmit="handleFormSubmit(event)">
-
-						<hr class="my-4">
-						<div class="row g-3">
-							<div class="col-12">
-								<label class="form-label">멤버십 옵션</label>
-								<div class="form-check">
-									<input id="membership1" name="membershipOption" type="radio"
-										class="form-check-input" value="1" checked>
+						<div class="row g-3 justify-content-center">
+							<div class="col-12 d-flex justify-content-between">
+								<div class="form-check d-flex flex-column align-items-center">
+									<img src="/image/KakaoTalk_20240717_185420258.png" alt="옵션 1 이미지" width="250" height="400">
+									<input id="membership1" name="membershipOption" type="radio" class="form-check-input mt-2" value="1" checked>
 									<label class="form-check-label" for="membership1">
 										1개월 - \1000
 									</label>
 								</div>
-								<div class="form-check">
-									<input id="membership6" name="membershipOption" type="radio"
-										class="form-check-input" value="6">
+								<div class="form-check d-flex flex-column align-items-center">
+									<img src="/image/KakaoTalk_20240717_185328467.png" alt="옵션 2 이미지" width="250" height="400">
+									<input id="membership6" name="membershipOption" type="radio" class="form-check-input mt-2" value="6">
 									<label class="form-check-label" for="membership6">
 										6개월 - \5000
 									</label>
 								</div>
-								<div class="form-check">
-									<input id="membership12" name="membershipOption" type="radio"
-										class="form-check-input" value="12">
+								<div class="form-check d-flex flex-column align-items-center">
+									<img src="/image/KakaoTalk_20240717_185044185.png" alt="옵션 3 이미지" width="250" height="400">
+									<input id="membership12" name="membershipOption" type="radio" class="form-check-input mt-2" value="12">
 									<label class="form-check-label" for="membership12">
 										12개월 - \9000
 									</label>
@@ -195,8 +192,9 @@
 							</div>
 						</div>
 						<hr class="my-4">
-						<button class="w-100 btn btn-primary btn-lg" type="submit"
-							style="background-color: #0d6efd; border-radius: 5px;">결제하기</button>
+						<div class="d-flex justify-content-center w-100">
+							<button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: #0d6efd; border-radius: 5px;">결제하기</button>
+						</div>
 					</form>
 				</div>
 			</div>
