@@ -25,10 +25,6 @@ import lombok.Setter;
 @Table(name = "board")
 public class Board {
     
-    /*
-     * @GeneratedValue(strategy = GenerationType.IDENTITY)
-     * 기본 키가 자동으로 할당되도록 설정하는 어노테이션
-     */
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,14 +45,18 @@ public class Board {
     @Column
     private LocalDateTime updatedDate;
     
+    @Column
+    private Integer viewCount = 0; 
+    
     @Builder
     public Board(Long idx, String title, String content, LocalDateTime createdDate, 
-                    LocalDateTime updatedDate) {
+                    LocalDateTime updatedDate, Integer viewCount) {
         this.idx = idx;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.viewCount = viewCount != null ? viewCount : 0;
     }
     
     // 기본 생성자
@@ -69,6 +69,7 @@ public class Board {
         this.writer = writer;
         this.createdDate = LocalDateTime.now();
         this.updatedDate = LocalDateTime.now();
+        this.viewCount = 0; // 게시글 생성 시 조회수 0으로 설정
     }
     
     // Board 엔티티에 댓글 관리 필드 추가
