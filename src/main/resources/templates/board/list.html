@@ -41,6 +41,7 @@
                                 <th class="col-sm-3">작성 날짜</th>
                                 <th class="col-sm-3">수정 날짜</th>
                                 <th class="col-sm-5">작성자</th>
+                   						  <th class="col-sm-5">조회수</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,10 +52,11 @@
                                     <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td th:text="${board.writer}"></td>
+                                    <td th:text="${board.viewCount}"></td>
                                 </tr>
                                 <th:block th:if="${board.comments.size() > 0}">
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="comment-section">
                                                 <h5>댓글:</h5>
                                                 <ul class="comment-list">

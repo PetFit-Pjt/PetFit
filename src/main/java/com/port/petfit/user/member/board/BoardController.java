@@ -69,7 +69,13 @@ public class BoardController {
      */
     @GetMapping({"", "/"})
     public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
-        model.addAttribute("board", boardService.findBoardByIdx(idx));
+        Board board = boardService.findBoardByIdx(idx);
+        
+        if (idx != 0) { // idx가 0이 아닌 경우에만 조회수 증가
+            boardService.incrementViewCount(idx);
+        }
+
+        model.addAttribute("board", board);
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserId = authentication.getName();
@@ -96,43 +102,6 @@ public class BoardController {
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
     }
     
-//    @PostMapping("/board")
-//    public ResponseEntity<?> postBoard(@RequestParam("title") String title, @RequestParam("content") String content) {
-//        try {
-//            Board board = new Board();
-//            board.setTitle(title);
-//            board.setContent(content);
-//            board.setCreatedDate(LocalDateTime.now());
-//            board.setUpdatedDate(LocalDateTime.now());
-//            boardRepository.save(board);
-//            
-//            return new ResponseEntity<>("{}", HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            // 예외 처리
-//            e.printStackTrace(); // 로그에 예외 출력
-//            return new ResponseEntity<>("Save failed", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-    
-//    @PostMapping("/board")
-//    public ResponseEntity<String> postBoard(@RequestBody Board board) {
-//        board.setCreatedDate(LocalDateTime.now());
-//        board.setUpdatedDate(LocalDateTime.now());
-//        boardRepository.save(board);
-//        return ResponseEntity.ok("게시글이 성공적으로 등록되었습니다.");
-//    }
-//    @PostMapping
-//    public ResponseEntity<?> postBoard(@RequestBody Board board) {
-//        board.setCreatedDate(LocalDateTime.now());
-//        board.setUpdatedDate(LocalDateTime.now());
-//        boardRepository.save(board);
-//        
-//        return new ResponseEntity<>("{}", HttpStatus.CREATED);
-//    }
-    
-    /*
-     * 게시글 수정
-     */
     @PutMapping("/{idx}")
     public ResponseEntity<?> putBoard(@PathVariable("idx") Long idx, @RequestBody Board board) {
         Board updateBoard = boardRepository.getOne(idx);
