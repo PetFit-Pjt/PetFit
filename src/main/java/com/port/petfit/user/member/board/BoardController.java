@@ -60,7 +60,8 @@ public class BoardController {
      */
     @GetMapping("/list")
     public String list(@PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
-        model.addAttribute("boardList", boardService.findAllWithComments());
+        List<Board> boards = boardService.findAllWithComments();
+        model.addAttribute("boardList", boards);
         return "/board/list";
     }
     

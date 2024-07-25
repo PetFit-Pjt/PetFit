@@ -37,22 +37,27 @@
                         <thead>
                             <tr class="warning">
                                 <th class="col-sm-1">No</th>
-                                <th class="col-sm-5">제목</th>
-                                <th class="col-sm-3">작성 날짜</th>
-                                <th class="col-sm-3">수정 날짜</th>
-                                <th class="col-sm-5">작성자</th>
-                   						  <th class="col-sm-5">조회수</th>
+                                <th class="col-sm-7">제목</th>
+                                <th class="col-sm-1">작성 날짜</th>
+                                <th class="col-sm-1">수정 날짜</th>
+                                <th class="col-sm-1">작성자</th>
+                                <th class="col-sm-1">조회수</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <th:block th:each="board, boardIndex : ${boardList}">
                                 <tr>
                                     <td th:text="${boardIndex.index + 1}"></td>
-                                    <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                                    <td>
+                                        <a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a>
+                                        <i class="fa fa-comment"></i><span th:text="' ' + ${board.commentCount}"></span> <!-- 댓글 아이콘과 댓글 수 추가 -->
+                                    </td>
                                     <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td th:text="${#temporals.format(board.updatedDate, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td th:text="${board.writer}"></td>
                                     <td th:text="${board.viewCount}"></td>
+
                                 </tr>
                                 <th:block th:if="${board.comments.size() > 0}">
                                     <tr>
@@ -78,7 +83,6 @@
     </div>
     <div th:insert="~{footer.html}"></div>
 
-    <!-- jQuery를 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>

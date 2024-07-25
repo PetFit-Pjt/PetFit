@@ -72,6 +72,11 @@ public class Board {
         this.viewCount = 0; // 게시글 생성 시 조회수 0으로 설정
     }
     
+    // 댓글 개수를 카운팅
+    public int getCommentCount() {
+        return comments != null ? comments.size() : 0;
+    }
+    
     // Board 엔티티에 댓글 관리 필드 추가
     @OneToMany(mappedBy = "board", cascade = {CascadeType.ALL})
     @JsonManagedReference
