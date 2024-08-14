@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="/css/search_result.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
+
 </head>
 <body>
   
-  	<div th:insert="~{header_common :: header}"></div>
+	<div th:insert="~{header_common :: header}"></div>
+	
   <section class="search-container">
     <h1>병원 검색</h1>
     <form action="/searchHospital" method="GET">
@@ -38,6 +39,42 @@
       </div>
     </form>
   </section>
+  
+	<div id="map" style="width:500px;height:400px;"></div>
+
+    <!-- Kakao Maps API 스크립트 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=urappkey"></script>
+  
+    <script th:inline="javascript">
+        var hospitals = /*[[${hospitals}]]*/ []; // JavaScript에서 사용할 수 있도록 JSON 형식으로 변환된 병원 데이터
+        console.log(hospitals);
+    </script>
+
+    <script>
+        var container = document.getElementById('map');
+				var options = {
+						center: new kakao.maps.LatLng(37.26329593616, 127.1095071892150),
+						level: 2
+					};
+
+        var map = new kakao.maps.Map(container, options); // 지도를 생성
+
+        hospitals.forEach(function(hospital) {
+            var position = new kakao.maps.LatLng(hospital.latitude, hospital.longitude);
+
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: position
+            });
+
+            kakao.maps.event.addListener(marker, 'click', function() {
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="padding:5px;">' + hospital.hospitalName + '</div>'
+                });
+                infowindow.open(map, marker);
+            });
+        });
+    </script>
   <h1>검색 결과</h1>
   <ul>
     <li th:each="hospital : ${hospitals}" class="hospital-card">
@@ -54,6 +91,7 @@
       </div>
     </li>
   </ul>
+
   <script>
   // 햄버거 메뉴 클릭 시 네비게이션 토글
   document.querySelector('.nav-toggle').addEventListener('click', function () {

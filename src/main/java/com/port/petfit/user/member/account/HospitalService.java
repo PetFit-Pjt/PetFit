@@ -29,6 +29,8 @@ public class HospitalService {
         String encodedPassword = passwordEncoder.encode(hospital.getHospitalPw());
         hospital.setHospitalPw(encodedPassword);
         hospital.setHospitalThumbnailUrl("/images/default_thumbnail.png");
+
+        System.out.println("Saving Hospital: " + hospital);
         hospitalRepository.save(hospital);
     }
 

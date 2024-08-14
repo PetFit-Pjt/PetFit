@@ -38,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Board> findAllWithComments() {
         List<Board> boards = boardRepository.findAll();
-        boards.forEach(board -> board.getComments().size()); // 댓글을 강제로 로드
+        boards.forEach(board -> board.getComments().size());
         return boards;
     }
     

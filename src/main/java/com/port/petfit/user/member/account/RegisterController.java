@@ -116,12 +116,33 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/register-hospital")
-	public String registerHospital(@ModelAttribute Hospital hospital, @RequestParam("doctorNames") String doctorNames) {
+	public String registerHospital(
+	    @ModelAttribute Hospital hospital,
+	    @RequestParam(value = "doctorNames", required = false) String doctorNames,
+	    @RequestParam(value = "latitude", required = false) Double latitude,
+	    @RequestParam(value = "longitude", required = false) Double longitude) {
+
+	    System.out.println("Received doctorNames: " + doctorNames);
+
+	    if (doctorNames == null || doctorNames.trim().isEmpty()) {
+	        throw new IllegalArgumentException("의사 이름은 필수 입력 항목입니다.");
+	    }
 	    hospital.setDoctorNames(doctorNames);
-		hospitalService.registerHospital(hospital);
-		return "login"; // 로그인 페이지로 리다이렉트
+
+	    if (latitude == null || longitude == null) {
+	        latitude = 37.26386525416204;
+	        longitude = 127.11073731642783;
+	    }
+	    hospital.setLatitude(latitude);
+	    hospital.setLongitude(longitude);
+
+	    System.out.println("Hospital Details: " + hospital);
+
+	    hospitalService.registerHospital(hospital);
+	    return "login";
 	}
-	
+
+
 	@GetMapping("/success")
 	public String success() {
 		return "success";
