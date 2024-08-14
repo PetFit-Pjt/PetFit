@@ -3,75 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--   <link rel="stylesheet" th:href="@{/css/search_details.css}"> -->
   <link rel="stylesheet" href="/css/search_details.css">
-    <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Kakao Maps API 스크립트 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=urappkey&libraries=services"></script>
+
   <title>병원 검색</title>
 </head>
 <body>
 
-  <main>
+<main>
+    <div th:insert="~{header_common :: header}"></div>
   
-  	<div th:insert="~{header_common :: header}"></div>
-  
-	<section class="search-container">
-		<h1>병원 검색</h1>
-	    <form action="/searchHospital" method="GET">
-	        <div class="search-box">
-	            <input type="text" name="query" placeholder="병원을 검색해주세요..." />
-	            <div class="location-select">
-	                <select name="location">
-	                    <option value="">지역 선택</option>
-	                    <option value="seoul">서울</option>
-	                    <option value="busan">부산</option>
-	                    <option value="daegu">대구</option>
-	                    <!-- 더 많은 지역 옵션 추가 -->
-	                </select>
-	            </div>
-	            <div class="hospital-type">
-	                <select name="type">
-	                    <option value="">병원 유형 선택</option>
-	                    <option value="public">공립병원</option>
-	                    <option value="private">사립병원</option>
-	                    <option value="emergency">응급병원</option>
-	                    <option value="general">종합병원</option>
-	                </select>
-	            </div>
-	            <button type="submit" class="search-btn">검색</button>
-	        </div>
-	    </form>
-	</section>
+    <section class="search-container">
+        <h1>병원 검색</h1>
+        <form action="/searchHospital" method="GET">
+            <div class="search-box">
+                <input type="text" name="query" placeholder="병원을 검색해주세요..." />
+                <div class="location-select">
+                    <select name="location">
+                        <option value="">지역 선택</option>
+                        <option value="seoul">서울</option>
+                        <option value="busan">부산</option>
+                        <option value="daegu">대구</option>
+                        <!-- 더 많은 지역 옵션 추가 -->
+                    </select>
+                </div>
+                <div class="hospital-type">
+                    <select name="type">
+                        <option value="">병원 유형 선택</option>
+                        <option value="public">공립병원</option>
+                        <option value="private">사립병원</option>
+                        <option value="emergency">응급병원</option>
+                        <option value="general">종합병원</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">검색</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- 지도 영역 -->
+    <div id="map" style="width:100%;height:400px;"></div>
+
+
+    <script th:inline="javascript">
+        var hospitals = /*[[${hospitals}]]*/ []; // JavaScript에서 사용할 수 있도록 JSON 형식으로 변환된 병원 데이터
+        console.log(hospitals);
+    </script>
+
+<script>
+    var hospitalsArray = hospitals.content; // content 배열을 사용
+ 		// map 객체를 생성한 다음 병원 마커를 생성하는 로직을 호출
+    var mapContainer = document.getElementById('map'); 
+    var mapOption = { 
+        center: new kakao.maps.LatLng(37.26329593616, 127.1095071892150), 
+        level: 3 
+    };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 마커 생성 로직
+		hospitalsArray.forEach(function(hospital) {
+    if (hospital.latitude && hospital.longitude) { 
+        var latitude = parseFloat(hospital.latitude);
+        var longitude = parseFloat(hospital.longitude);
+
+        console.log('Hospital:', hospital.hospitalName, 'Lat:', latitude, 'Lng:', longitude);
+
+        if (!isNaN(latitude) && !isNaN(longitude)) {
+            var position = new kakao.maps.LatLng(latitude, longitude);
+
+            // 영업 시간 및 병원 유형에 따른 마커 이미지 결정
+						// 현재 시간을 KST로 변환
+						function getCurrentKST() {
+						    return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+						}
+						
+						// 'HH:MM' 형식의 시간을 한국 표준시(KST) 기준으로 변환
+						function parseTimeToKST(timeStr) {
+						    var [hours, minutes] = timeStr.split(':').map(Number);
+						    var date = new Date();
+						    date.setHours(hours);
+						    date.setMinutes(minutes);
+						    date.setSeconds(0);
+						    return date;
+						}
+						
+						// 현재 시간
+						var currentKST = getCurrentKST();
+						
+						// 병원 운영 시작 및 종료 시간 (KST 기준으로 변환)
+						var startTimeKST = parseTimeToKST(hospital.startTime);
+						var endTimeKST = parseTimeToKST(hospital.endTime);
+						
+						// 마커 이미지 결정
+						var markerImageUrl = '';
+						if (currentKST >= startTimeKST && currentKST <= endTimeKST) {
+						    markerImageUrl = hospital.type === 'emergency' ? '/image/marker_emergency.png' : '/image/marker_open.png';
+						} else {
+						    markerImageUrl = '/image/marker_closed.png';
+						}
+
+            // 마커 이미지 설정
+            var markerImage = new kakao.maps.MarkerImage(markerImageUrl, new kakao.maps.Size(40, 40));
+            
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: position,
+                image: markerImage
+            });
+
+            // 마커 클릭 이벤트 핸들러 추가
+            kakao.maps.event.addListener(marker, 'click', function() {
+                var content = `
+                    <div class="hospital-info" style="padding:10px; width:420px;">
+                        <h2>${hospital.hospitalName}</h2>
+                        <p>${hospital.hospitalAddress}</p>
+                        <p><strong>전화번호:</strong> ${hospital.hospitalPhone}</p>
+                        <p><strong>이메일:</strong> ${hospital.hospitalEmail}</p>
+                        <p><strong>영업시간:</strong> ${hospital.startTime} ~ ${hospital.endTime}</p>
+                        <a href="/appointment" style="width: 102px; margin-right: 0;" class="reservation-btn">예약하기</a>
+                    </div>
+                `;
+
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: content,
+                    removable: true // 인포윈도우를 닫을 수 있도록 설정
+                });
+
+                infowindow.open(map, marker);
+            });
+        } else {
+            console.error('Invalid coordinate values:', latitude, longitude);
+        }
+    } else {
+        console.error('Invalid hospital location:', hospital);
+    }
+});
+</script>
 
     <section class="hospital-list">
-      <h1>검색 결과</h1>
-      <ul>
-        <li th:each="hospital : ${hospitals}" class="hospital-card">
-          <div class="image-container">
-            <img th:src="@{${hospital.hospitalThumbnailUrl}}" alt="병원 이미지" class="hospital-thumbnail">
-          </div>
-          <div class="hospital-info">
-            <h2 th:text="${hospital.hospitalName}"></h2>
-            <p th:text="${hospital.hospitalAddress}"></p>
-            <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
-            <p><strong>이메일:</strong> <span th:text="${hospital.hospitalEmail}"></span></p>
-            <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
-            <a th:href="@{/appointment}" style="width: 105px" class="reservation-btn">예약하기</a>
-          </div>
-        </li>
-      </ul>
+        <h1>검색 결과</h1>
+        <ul>
+            <li th:each="hospital : ${hospitals}" class="hospital-card">
+                <div class="image-container">
+                    <img th:src="@{${hospital.hospitalThumbnailUrl}}" alt="병원 이미지" class="hospital-thumbnail">
+                </div>
+                <div class="hospital-info">
+                    <h2 th:text="${hospital.hospitalName}"></h2>
+                    <p th:text="${hospital.hospitalAddress}"></p>
+                    <p><strong>전화번호:</strong> <span th:text="${hospital.hospitalPhone}"></span></p>
+                    <p><strong>이메일:</strong> <span th:text="${hospital.hospitalEmail}"></span></p>
+                    <p><strong>영업시간:</strong> <span th:text="${hospital.startTime} + ' ~ ' + ${hospital.endTime}"></span></p>
+                    <a th:href="@{/appointment}" style="width: 105px" class="reservation-btn">예약하기</a>
+                </div>
+            </li>
+        </ul>
       
-       <div class="pagination">
-        <a th:href="@{/search(page=${hospitals.number - 1})}" th:if="${hospitals.hasPrevious()}">이전</a>
-        <span th:text="${hospitals.number + 1} + ' / ' + ${hospitals.totalPages}"></span>
-        <a th:href="@{/search(page=${hospitals.number + 1})}" th:if="${hospitals.hasNext()}">다음</a>
-      </div>
+        <div class="pagination">
+            <a th:href="@{/search(page=${hospitals.number - 1})}" th:if="${hospitals.hasPrevious()}">이전</a>
+            <span th:text="${hospitals.number + 1} + ' / ' + ${hospitals.totalPages}"></span>
+            <a th:href="@{/search(page=${hospitals.number + 1})}" th:if="${hospitals.hasNext()}">다음</a>
+        </div>
     </section>
-    
-  </main>
-	<script type="/js/search_details.js"></script>
-  <div th:insert="~{footer.html}"></div>
+</main>
+
+<script type="/js/search_details.js"></script>
+<div th:insert="~{footer.html}"></div>
 <script>
   // 햄버거 메뉴 클릭 시 네비게이션 토글
   document.querySelector('.nav-toggle').addEventListener('click', function () {

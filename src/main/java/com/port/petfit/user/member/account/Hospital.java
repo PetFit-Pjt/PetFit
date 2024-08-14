@@ -71,7 +71,16 @@ public class Hospital {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date a_registerDate;
+    
+    @Column(nullable = false)
+    private String doctorNames;
 
+    @Column(nullable = false)
+    private double latitude;
+
+    @Column(nullable = false)
+    private double longitude;
+    
 	public String getHospitalId() {
 		return hospitalId;
 	}
@@ -192,12 +201,11 @@ public class Hospital {
 		this.a_registerDate = a_registerDate;
 	}
     
-    
-    @Column(nullable = false)
-    private String doctorNames; // 의사 목록
+    public String getDoctorNames() {
+        return doctorNames;
+    }
 
-	public void setDoctorNames(String doctorNames2) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setDoctorNames(String doctorNames) {
+        this.doctorNames = doctorNames;
+    }
 }

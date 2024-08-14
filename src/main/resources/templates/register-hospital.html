@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>반려동물 병원 예약 시스템</title>
   <link rel="stylesheet" th:href="@{/css/register.css}">
+  <!-- Kakao Maps API 스크립트 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=urappkey&libraries=services"></script>
+  
 </head>
 <body>
   <div class="container">
@@ -60,10 +62,54 @@
             <input type="text" id="hospitalPhone" name="hospitalPhone" th:value="${Hospital.hospitalPhone}" required>
           </div>
         </div>
-        <div class="form-group">
-          <label for="doctorNames">의사 이름 (쉼표로 구분)</label>
-          <textarea id="doctorNames" name="doctorNames" rows="3" th:text="${Hospital.doctorNames}"></textarea>
-        </div>
+				<div class="form-group">
+				  <label for="doctorNames">의사 이름 (쉼표로 구분)</label>
+				  <textarea id="doctorNames" name="doctorNames" rows="3" required></textarea>
+				</div>
+        <script>
+        kakao.maps.load(function() {
+          document.getElementById("register-form").addEventListener("submit", function(event) {
+              event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+              var startTime = document.getElementById("startTime").value;
+              var endTime = document.getElementById("endTime").value;
+
+              if (startTime >= endTime) {
+                  alert("종료 시간은 시작 시간보다 늦어야 합니다.");
+                  return;
+              }
+
+              var hospitalAddress = document.getElementById("hospitalAddress").value;
+              var geocoder = new kakao.maps.services.Geocoder();
+
+              geocoder.addressSearch(hospitalAddress, function(result, status) {
+                  if (status === kakao.maps.services.Status.OK) {
+                      var latitude = result[0].y;
+                      var longitude = result[0].x;
+
+                      // 폼에 hidden input으로 latitude와 longitude 값을 추가합니다.
+                      var form = document.getElementById("register-form");
+                      var latitudeInput = document.createElement("input");
+                      latitudeInput.type = "hidden";
+                      latitudeInput.name = "latitude";
+                      latitudeInput.value = latitude;
+
+                      var longitudeInput = document.createElement("input");
+                      longitudeInput.type = "hidden";
+                      longitudeInput.name = "longitude";
+                      longitudeInput.value = longitude;
+
+                      form.appendChild(latitudeInput);
+                      form.appendChild(longitudeInput);
+
+                      form.submit(); // 폼을 다시 제출합니다.
+                  } else {
+                      alert('주소를 확인할 수 없습니다. 정확한 주소를 입력해주세요.');
+                  }
+              });
+          });
+        });
+        </script>
         <div class="form-group">
           <button type="submit">회원가입</button>
         </div>
@@ -71,6 +117,8 @@
     </div>
   </div>
   
+
+</body>
   <script>
 	document.getElementById("register-form").addEventListener("submit", function(event) {
 	    var startTime = document.getElementById("startTime").value;
@@ -79,7 +127,15 @@
 	        alert("종료 시간은 시작 시간보다 늦어야 합니다.");
 	        event.preventDefault(); // 폼 제출 중지
 	    }
+	    
+	    var doctorNames = document.getElementById('doctorNames').value;
+	    console.log('Doctor Names:', doctorNames);
+	    
+	    // doctorNames가 빈 문자열인지 또는 null인지 확인
+	    if (doctorNames.trim() === "" || doctorNames === null) {
+	        alert("의사 이름은 필수 입력 항목입니다.");
+	        event.preventDefault(); // 폼 제출 중지
+	    }
 	});
 </script>
-</body>
 </html>
